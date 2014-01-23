@@ -156,6 +156,12 @@
              @"thumbnail" : [UIImage imageWithCGImage:[(ALAssetsGroup*)_assetGroups[nIndex] posterImage]]};
 }
 
+- (void)clearData
+{
+	_assetGroups = nil;
+	_assetPhotos = nil;
+}
+
 #pragma mark - utils
 - (UIImage *)getCroppedImage:(NSURL *)urlImage
 {

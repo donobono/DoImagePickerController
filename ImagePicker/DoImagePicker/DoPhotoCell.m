@@ -22,9 +22,9 @@
 - (void)setSelectMode:(BOOL)bSelect
 {
     if (bSelect)
-        _vSelect.alpha = 0.8;
+        _ivPhoto.alpha = 0.2;
     else
-        _vSelect.alpha = 0.0;
+        _ivPhoto.alpha = 1.0;
 }
 
 /*

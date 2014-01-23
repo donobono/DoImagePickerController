@@ -53,6 +53,20 @@
     }];
 
     ASSETHELPER.bReverse = YES;
+	
+	if (_nMaxCount > 1)
+	{
+		_dSelect = [[NSMutableDictionary alloc] initWithCapacity:_nMaxCount];
+		
+		// init gesture
+		UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+		[self.view addGestureRecognizer:pan];
+	}
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+	[ASSETHELPER clearData];
 }
 
 #pragma mark - for bottom menu
@@ -79,7 +93,13 @@
 
 - (IBAction)onSelectPhoto:(id)sender
 {
-    [_delegate didSelectPhotosFromDoImagePickerController:nil];
+	NSMutableArray *aResult = [[NSMutableArray alloc] initWithCapacity:_dSelect.count];
+	NSArray *aKeys = _dSelect.allKeys;
+	
+	for (int i = 0; i < _dSelect.count; i++)
+		[aResult addObject:[ASSETHELPER getImageAtIndex:[aKeys[i] integerValue] type:ASSET_PHOTO_SCREEN_SIZE]];
+		
+    [_delegate didSelectPhotosFromDoImagePickerController:aResult];
 }
 
 - (IBAction)onCancel:(id)sender
@@ -171,8 +191,12 @@
     DoPhotoCell *cell = (DoPhotoCell *)[_cvPhotoList dequeueReusableCellWithReuseIdentifier:@"DoPhotoCell" forIndexPath:indexPath];
 
     cell.ivPhoto.image = [ASSETHELPER getImageAtIndex:indexPath.row type:ASSET_PHOTO_THUMBNAIL];
-    [cell setSelectMode:NO];;
-    
+
+	if (_dSelect[@(indexPath.row)] == nil)
+		[cell setSelectMode:NO];
+    else
+		[cell setSelectMode:YES];
+	
     return cell;
 }
 
@@ -182,6 +206,24 @@
     {
         [_delegate didSelectPhotosFromDoImagePickerController:@[[ASSETHELPER getImageAtIndex:indexPath.row type:ASSET_PHOTO_SCREEN_SIZE]]];
     }
+	else
+	{
+		DoPhotoCell *cell = (DoPhotoCell *)[collectionView cellForItemAtIndexPath:indexPath];
+
+		if ((_dSelect[@(indexPath.row)] == nil) && (_nMaxCount > _dSelect.count))
+		{
+			// select
+			_dSelect[@(indexPath.row)] = @"Y";
+			[cell setSelectMode:YES];
+		}
+		else
+		{
+			// unselect
+			[_dSelect removeObjectForKey:@(indexPath.row)];
+			[cell setSelectMode:NO];
+		}
+
+	}
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -209,16 +251,54 @@
     }
 }
 
+// for multiple selection with panning
+- (void)handleGesture:(UIPanGestureRecognizer *)gestureRecognizer
+{
+    double fX = [gestureRecognizer locationInView:_cvPhotoList].x;
+    double fY = [gestureRecognizer locationInView:_cvPhotoList].y;
+	
+    for (UICollectionViewCell *cell in _cvPhotoList.visibleCells)
+	{
+        float fSX = cell.frame.origin.x;
+        float fEX = cell.frame.origin.x + cell.frame.size.width;
+        float fSY = cell.frame.origin.y;
+        float fEY = cell.frame.origin.y + cell.frame.size.height;
+        
+        if (fX >= fSX && fX <= fEX && fY >= fSY && fY <= fEY)
+        {
+            NSIndexPath *indexPath = [_cvPhotoList indexPathForCell:cell];
+            
+            if (_lastAccessed != indexPath)
+            {
+				[self collectionView:_cvPhotoList didSelectItemAtIndexPath:indexPath];
+            }
+            
+            _lastAccessed = indexPath;
+        }
+    }
+    
+    if (gestureRecognizer.state == UIGestureRecognizerStateEnded)
+    {
+        _lastAccessed = nil;
+        _cvPhotoList.scrollEnabled = YES;
+    }
+}
+
 #pragma mark - for photos
 - (void)showPhotosInGroup:(NSInteger)nIndex
 {
     [ASSETHELPER getPhotoListOfGroupByIndex:nIndex result:^(NSArray *aPhotos) {
         
         [_cvPhotoList reloadData];
-        [_cvPhotoList scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
-        
+		if (aPhotos.count > 0)
+		{
+			[_cvPhotoList scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
+        }
+
         _btUp.alpha = 0.0;
 
+		if (_cvPhotoList.contentSize.height < _cvPhotoList.frame.size.height)
+			_btDown.alpha = 0.0;
     }];
 }
 

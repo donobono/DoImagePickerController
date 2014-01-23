@@ -36,6 +36,8 @@
 - (NSInteger)getPhotoCountOfCurrentGroup;
 - (NSDictionary *)getGroupInfo:(NSInteger)nIndex;
 
+- (void)clearData;
+
 // utils
 - (UIImage *)getCroppedImage:(NSURL *)urlImage;
 - (UIImage *)getImageFromAsset:(ALAsset *)asset type:(NSInteger)nType;

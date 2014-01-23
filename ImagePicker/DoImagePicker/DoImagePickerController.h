@@ -58,5 +58,6 @@
 
 // select photos
 @property (strong, nonatomic)   NSMutableDictionary     *dSelect;
+@property (strong, nonatomic)	NSIndexPath				*lastAccessed;
 
 @end

@@ -29,9 +29,12 @@
 
 - (IBAction)onShowImagePicker:(id)sender
 {
+	for (UIImageView *iv in _aIVs)
+		iv.image = nil;
+	
     DoImagePickerController *cont = [[DoImagePickerController alloc] initWithNibName:@"DoImagePickerController" bundle:nil];
     cont.delegate = self;
-    cont.nMaxCount = 1;
+    cont.nMaxCount = 4;
     [self presentViewController:cont animated:YES completion:nil];
 }
 

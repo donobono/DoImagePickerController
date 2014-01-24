@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>663A9C6B-1B3F-41E1-A66F-AC4A2E8DA8C6</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ImagePicker</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>53914F7A-695E-460E-A681-C2F69F56103D</key>
+		<string>https://github.com/donobono/DoImagePickerController.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ImagePicker.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>53914F7A-695E-460E-A681-C2F69F56103D</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/donobono/DoImagePickerController.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>53914F7A-695E-460E-A681-C2F69F56103D</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>53914F7A-695E-460E-A681-C2F69F56103D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>DoImagePickerController</string>
+		</dict>
+	</array>
+</dict>
+</plist>

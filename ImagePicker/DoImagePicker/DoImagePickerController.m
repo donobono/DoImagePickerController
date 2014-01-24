@@ -228,7 +228,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    NSLog(@"..............................");
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

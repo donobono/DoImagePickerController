@@ -28,6 +28,7 @@
 		73238D341890C97F0047DDA0 /* AssetHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 73238D331890C97F0047DDA0 /* AssetHelper.m */; };
 		73238D4D1890DC320047DDA0 /* DoPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 73238D4C1890DC320047DDA0 /* DoPhotoCell.m */; };
 		73238D4F1890DC4C0047DDA0 /* DoPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73238D4E1890DC4C0047DDA0 /* DoPhotoCell.xib */; };
+		73238D5218922F150047DDA0 /* DoFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 73238D5118922F150047DDA0 /* DoFlowLayout.m */; };
 		73E1110C18914C260011CBD3 /* check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73E1110818914C260011CBD3 /* check@2x.png */; };
 		73E1110D18914C260011CBD3 /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73E1110918914C260011CBD3 /* close@2x.png */; };
 		73E1110E18914C260011CBD3 /* down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73E1110A18914C260011CBD3 /* down@2x.png */; };
@@ -79,6 +80,8 @@
 		73238D4B1890DC320047DDA0 /* DoPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoPhotoCell.h; sourceTree = "<group>"; };
 		73238D4C1890DC320047DDA0 /* DoPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoPhotoCell.m; sourceTree = "<group>"; };
 		73238D4E1890DC4C0047DDA0 /* DoPhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DoPhotoCell.xib; sourceTree = "<group>"; };
+		73238D5018922F150047DDA0 /* DoFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoFlowLayout.h; sourceTree = "<group>"; };
+		73238D5118922F150047DDA0 /* DoFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoFlowLayout.m; sourceTree = "<group>"; };
 		73E1110818914C260011CBD3 /* check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check@2x.png"; sourceTree = "<group>"; };
 		73E1110918914C260011CBD3 /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
 		73E1110A18914C260011CBD3 /* down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down@2x.png"; sourceTree = "<group>"; };
@@ -202,6 +205,8 @@
 				73238D4B1890DC320047DDA0 /* DoPhotoCell.h */,
 				73238D4C1890DC320047DDA0 /* DoPhotoCell.m */,
 				73238D4E1890DC4C0047DDA0 /* DoPhotoCell.xib */,
+				73238D5018922F150047DDA0 /* DoFlowLayout.h */,
+				73238D5118922F150047DDA0 /* DoFlowLayout.m */,
 			);
 			path = DoImagePicker;
 			sourceTree = "<group>";
@@ -340,6 +345,7 @@
 			files = (
 				73238D341890C97F0047DDA0 /* AssetHelper.m in Sources */,
 				73238D4D1890DC320047DDA0 /* DoPhotoCell.m in Sources */,
+				73238D5218922F150047DDA0 /* DoFlowLayout.m in Sources */,
 				73238D231890AD4B0047DDA0 /* DoImagePickerController.m in Sources */,
 				73238D2A1890AF010047DDA0 /* DoAlbumCell.m in Sources */,
 				73238D011890AAC60047DDA0 /* ViewController.m in Sources */,

@@ -10,4 +10,23 @@
 
 @implementation DoFlowLayout
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    
+    if (self == nil)
+    {
+        _animator = [[UIDynamicAnimator alloc] initWithCollectionViewLayout:self];
+    }
+    
+    return self;
+}
+
+- (void)prepareLayout
+{
+    [super prepareLayout];
+    
+    
+}
+
 @end

@@ -10,4 +10,6 @@
 
 @interface DoFlowLayout : UICollectionViewFlowLayout
 
+@property (strong, nonatomic)   UIDynamicAnimator       *animator;
+
 @end

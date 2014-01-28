@@ -42,6 +42,7 @@
 - (UIImage *)getCroppedImage:(NSURL *)urlImage;
 - (UIImage *)getImageFromAsset:(ALAsset *)asset type:(NSInteger)nType;
 - (UIImage *)getImageAtIndex:(NSInteger)nIndex type:(NSInteger)nType;
+- (ALAsset *)getAssetAtIndex:(NSInteger)nIndex;
 
 @end
 

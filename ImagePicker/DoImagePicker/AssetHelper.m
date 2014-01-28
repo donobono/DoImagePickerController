@@ -260,4 +260,9 @@
     return [self getImageFromAsset:(ALAsset *)_assetPhotos[nIndex] type:nType];
 }
 
+- (ALAsset *)getAssetAtIndex:(NSInteger)nIndex
+{
+    return _assetPhotos[nIndex];
+}
+
 @end

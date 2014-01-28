@@ -8,13 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol DoImagePickerControllerDelegate
-
-- (void)didCancelDoImagePickerController;
-- (void)didSelectPhotosFromDoImagePickerController:(NSArray *)aSelected;
-
-@end
-
 #define DO_RGB(r, g, b)     [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
 #define DO_RGBA(r, g, b, a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 
@@ -24,14 +17,20 @@
 #define DO_ALBUM_NAME_TEXT_COLOR    DO_RGB(57, 185, 238)
 #define DO_ALBUM_COUNT_TEXT_COLOR   DO_RGB(247, 200, 142)
 
+#define DO_PICKER_RESULT_UIIMAGE    0
+#define DO_PICKER_RESULT_ASSET      1
+
 @interface DoImagePickerController : UIViewController
 
 @property (assign, nonatomic) id            delegate;
 
 @property (readwrite)   NSInteger           nMaxCount;
+@property (readwrite)   NSInteger           nColumnCount;   // 2, 3, or 4
+@property (readwrite)   NSInteger           nResultType;    // default : DO_PICKER_RESULT_UIIMAGE
 
 @property (weak, nonatomic) IBOutlet UICollectionView   *cvPhotoList;
 @property (weak, nonatomic) IBOutlet UITableView        *tvAlbumList;
+@property (weak, nonatomic) IBOutlet UIView             *vDimmed;
 
 // bottom menu
 @property (weak, nonatomic) IBOutlet UIView             *vBottomMenu;
@@ -44,12 +43,13 @@
 - (IBAction)onSelectPhoto:(id)sender;
 - (IBAction)onCancel:(id)sender;
 - (IBAction)onSelectAlbum:(id)sender;
+- (void)hideBottomMenu;
 
 // side buttons
 @property (weak, nonatomic) IBOutlet UIButton           *btUp;
 @property (weak, nonatomic) IBOutlet UIButton           *btDown;
 
-- (void)initSideButtons;
+- (void)initControls;
 - (IBAction)onUp:(id)sender;
 - (IBAction)onDown:(id)sender;
 
@@ -59,5 +59,12 @@
 // select photos
 @property (strong, nonatomic)   NSMutableDictionary     *dSelect;
 @property (strong, nonatomic)	NSIndexPath				*lastAccessed;
+
+@end
+
+@protocol DoImagePickerControllerDelegate
+
+- (void)didCancelDoImagePickerController;
+- (void)didSelectPhotosFromDoImagePickerController:(DoImagePickerController *)picker result:(NSArray *)aSelected;
 
 @end

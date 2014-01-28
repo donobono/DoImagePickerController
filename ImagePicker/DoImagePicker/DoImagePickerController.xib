@@ -15,6 +15,7 @@
                 <outlet property="ivLine2" destination="xuh-QZ-xfS" id="Aeb-Qv-q0r"/>
                 <outlet property="tvAlbumList" destination="OuM-nH-WaU" id="icz-iC-8hb"/>
                 <outlet property="vBottomMenu" destination="m70-sa-NHK" id="eu7-UE-Y2p"/>
+                <outlet property="vDimmed" destination="v5R-jm-nVL" id="x82-tL-iti"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -60,10 +61,15 @@
                         <action selector="onDown:" destination="-1" eventType="touchUpInside" id="glY-XH-qPw"/>
                     </connections>
                 </button>
+                <view alpha="0.69999999999999996" contentMode="scaleToFill" id="v5R-jm-nVL" userLabel="View : dimmed layer">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="109"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" id="OuM-nH-WaU">
                     <rect key="frame" x="0.0" y="428" width="320" height="140"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="1" alpha="0.95000000000000007" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="ahk-Yc-o1b"/>
                         <outlet property="delegate" destination="-1" id="QSU-Wr-tVd"/>

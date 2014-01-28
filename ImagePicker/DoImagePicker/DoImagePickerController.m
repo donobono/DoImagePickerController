@@ -28,7 +28,7 @@
     [super viewDidLoad];
     
     [self initBottomMenu];
-    [self initSideButtons];
+    [self initControls];
     
     UINib *nib = [UINib nibWithNibName:@"DoPhotoCell" bundle:nil];
     [_cvPhotoList registerNib:nib forCellWithReuseIdentifier:@"DoPhotoCell"];
@@ -52,13 +52,14 @@
 
     }];
 
+    // new photo is located at the first of array
     ASSETHELPER.bReverse = YES;
 	
 	if (_nMaxCount > 1)
 	{
 		_dSelect = [[NSMutableDictionary alloc] initWithCapacity:_nMaxCount];
 		
-		// init gesture
+		// init gesture for multiple selection with panning
 		UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
 		[self.view addGestureRecognizer:pan];
 	}
@@ -66,7 +67,8 @@
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-	[ASSETHELPER clearData];
+    if (_nResultType == DO_PICKER_RESULT_UIIMAGE)
+        [ASSETHELPER clearData];
 }
 
 #pragma mark - for bottom menu
@@ -93,13 +95,21 @@
 
 - (IBAction)onSelectPhoto:(id)sender
 {
-	NSMutableArray *aResult = [[NSMutableArray alloc] initWithCapacity:_dSelect.count];
-	NSArray *aKeys = _dSelect.allKeys;
-	
-	for (int i = 0; i < _dSelect.count; i++)
-		[aResult addObject:[ASSETHELPER getImageAtIndex:[aKeys[i] integerValue] type:ASSET_PHOTO_SCREEN_SIZE]];
-		
-    [_delegate didSelectPhotosFromDoImagePickerController:aResult];
+    NSMutableArray *aResult = [[NSMutableArray alloc] initWithCapacity:_dSelect.count];
+    NSArray *aKeys = _dSelect.allKeys;
+
+    if (_nResultType == DO_PICKER_RESULT_UIIMAGE)
+    {
+        for (int i = 0; i < _dSelect.count; i++)
+            [aResult addObject:[ASSETHELPER getImageAtIndex:[aKeys[i] integerValue] type:ASSET_PHOTO_SCREEN_SIZE]];
+    }
+    else
+    {
+        for (int i = 0; i < _dSelect.count; i++)
+            [aResult addObject:[ASSETHELPER getAssetAtIndex:i]];
+    }
+
+    [_delegate didSelectPhotosFromDoImagePickerController:self result:aResult];
 }
 
 - (IBAction)onCancel:(id)sender
@@ -109,30 +119,65 @@
 
 - (IBAction)onSelectAlbum:(id)sender
 {
-    [UIView animateWithDuration:0.2 animations:^(void) {
-        
-        _tvAlbumList.frame = CGRectMake(0, _vBottomMenu.frame.origin.y - _tvAlbumList.frame.size.height,
-                                        _tvAlbumList.frame.size.width, _tvAlbumList.frame.size.height);
-        _tvAlbumList.alpha = 1.0;
+    if (_tvAlbumList.frame.origin.y == _vBottomMenu.frame.origin.y)
+    {
+        // show tableview
+        [UIView animateWithDuration:0.2 animations:^(void) {
 
+            _vDimmed.alpha = 0.7;
 
-    } completion:^(BOOL finished) {
-
-        [UIView animateWithDuration:0.1 animations:^(void) {
-
-            _tvAlbumList.frame = CGRectMake(0, _vBottomMenu.frame.origin.y - _tvAlbumList.frame.size.height + 3,
+            _tvAlbumList.frame = CGRectMake(0, _vBottomMenu.frame.origin.y - _tvAlbumList.frame.size.height,
                                             _tvAlbumList.frame.size.width, _tvAlbumList.frame.size.height);
+            _tvAlbumList.alpha = 1.0;
+            
+            
+        } completion:^(BOOL finished) {
+            
+            [UIView animateWithDuration:0.1 animations:^(void) {
+                
+                _tvAlbumList.frame = CGRectMake(0, _vBottomMenu.frame.origin.y - _tvAlbumList.frame.size.height + 3,
+                                                _tvAlbumList.frame.size.width, _tvAlbumList.frame.size.height);
+                
+            }];
             
         }];
-        
-    }];
+    }
+    else
+    {
+        // hide tableview
+        [self hideBottomMenu];
+    }
 }
 
 #pragma mark - for side buttons
-- (void)initSideButtons
+- (void)initControls
 {
+    // side buttons
     _btUp.backgroundColor = DO_SIDE_BUTTON_COLOR;
     _btDown.backgroundColor = DO_SIDE_BUTTON_COLOR;
+    
+    // table view
+    UIImageView *ivHeader = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _tvAlbumList.frame.size.width, 0.5)];
+    ivHeader.backgroundColor = DO_ALBUM_NAME_TEXT_COLOR;
+    _tvAlbumList.tableHeaderView = ivHeader;
+
+    UIImageView *ivFooter = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _tvAlbumList.frame.size.width, 0.5)];
+    ivFooter.backgroundColor = DO_ALBUM_NAME_TEXT_COLOR;
+    _tvAlbumList.tableFooterView = ivFooter;
+    
+    // dimmed view
+    _vDimmed.alpha = 0.0;
+    _vDimmed.frame = self.view.frame;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapOnDimmedView:)];
+    [_vDimmed addGestureRecognizer:tap];
+}
+
+- (void)onTapOnDimmedView:(UITapGestureRecognizer *)tap
+{
+    if (tap.state == UIGestureRecognizerStateEnded)
+    {
+        [self hideBottomMenu];
+    }
 }
 
 - (IBAction)onUp:(id)sender
@@ -172,11 +217,18 @@
     [self showPhotosInGroup:indexPath.row];
     [_btSelectAlbum setTitle:[ASSETHELPER getGroupInfo:indexPath.row][@"name"] forState:UIControlStateNormal];
 
-    [UIView animateWithDuration:0.2 animations:^(void) {
+    [self hideBottomMenu];
+}
 
+- (void)hideBottomMenu
+{
+    [UIView animateWithDuration:0.2 animations:^(void) {
+        
+        _vDimmed.alpha = 0.0;
+        
         _tvAlbumList.frame = CGRectMake(0, _vBottomMenu.frame.origin.y, _tvAlbumList.frame.size.width, _tvAlbumList.frame.size.height);
         _tvAlbumList.alpha = 0.0;
-
+        
     }];
 }
 
@@ -204,7 +256,14 @@
 {
     if (_nMaxCount <= 1)
     {
-        [_delegate didSelectPhotosFromDoImagePickerController:@[[ASSETHELPER getImageAtIndex:indexPath.row type:ASSET_PHOTO_SCREEN_SIZE]]];
+        if (_nResultType == DO_PICKER_RESULT_UIIMAGE)
+        {
+            [_delegate didSelectPhotosFromDoImagePickerController:self result:@[[ASSETHELPER getImageAtIndex:indexPath.row type:ASSET_PHOTO_SCREEN_SIZE]]];
+        }
+        else
+        {
+            [_delegate didSelectPhotosFromDoImagePickerController:self result:@[[ASSETHELPER getAssetAtIndex:indexPath.row]]];
+        }
     }
 	else
 	{
@@ -228,13 +287,22 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"..............................");
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (_nColumnCount == 2)
+        return CGSizeMake(158, 158);
+    else if (_nColumnCount == 3)
+        return CGSizeMake(104, 104);
+    else if (_nColumnCount == 4)
+        return CGSizeMake(77, 77);
+
+    return CGSizeZero;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSLog(@"scrollview offset : %@", NSStringFromCGPoint(scrollView.contentOffset));
-    
     if (scrollView == _cvPhotoList)
     {
         [UIView animateWithDuration:0.2 animations:^(void) {
@@ -290,6 +358,13 @@
     [ASSETHELPER getPhotoListOfGroupByIndex:nIndex result:^(NSArray *aPhotos) {
         
         [_cvPhotoList reloadData];
+        
+        _cvPhotoList.alpha = 0.3;
+        [UIView animateWithDuration:0.2 animations:^(void) {
+            [UIView setAnimationDelay:0.1];
+            _cvPhotoList.alpha = 1.0;
+        }];
+        
 		if (aPhotos.count > 0)
 		{
 			[_cvPhotoList scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
@@ -297,8 +372,10 @@
 
         _btUp.alpha = 0.0;
 
-		if (_cvPhotoList.contentSize.height < _cvPhotoList.frame.size.height)
-			_btDown.alpha = 0.0;
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
+            if (_cvPhotoList.contentSize.height < _cvPhotoList.frame.size.height)
+                _btDown.alpha = 0.0;
+        });
     }];
 }
 

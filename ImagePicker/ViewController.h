@@ -17,6 +17,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView    *iv4;
 @property (strong, nonatomic)   NSArray             *aIVs;
 
+@property (weak, nonatomic) IBOutlet UISegmentedControl     *sgColumnCount;
+@property (weak, nonatomic) IBOutlet UISegmentedControl     *sgMaxCount;
+
 - (IBAction)onShowImagePicker:(id)sender;
 
 @end

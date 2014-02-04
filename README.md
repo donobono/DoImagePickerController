@@ -75,7 +75,6 @@ DoImagePickerController was created by Dono Cho.
 DoImagePickerController is available under the MIT license. See the LICENSE file for more info.
 
 
-## icon image from
+## Icon images from : thank you so much for sharing awesome icons!!!
 http://dribbble.com/KounterB
 
-many thank you for sharing awesome icons!!!

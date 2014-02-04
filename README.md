@@ -6,17 +6,16 @@ An image picker controller with single selection and multiple selection. Support
 ## Preview
 
 ### various column count : 2, 3 and 4
-![DoImagePickerController Screenshot](https://raw.github.com/donobono/DoImagePickerController/master/p1.png)
+![DoImagePickerController Screenshot](https://raw.github.com/donobono/DoImagePickerController/master/p1.jpg)
 
 ### select multiple photos with pan gesture
-![DoImagePickerController Screenshot](https://raw.github.com/donobono/DoImagePickerController/master/p2.png)
+![DoImagePickerController Screenshot](https://raw.github.com/donobono/DoImagePickerController/master/p2.jpg)
 
 ### select album
-![DoImagePickerController Screenshot](https://raw.github.com/donobono/DoImagePickerController/master/p3.png)
+![DoImagePickerController Screenshot](https://raw.github.com/donobono/DoImagePickerController/master/p3.jpg)
 
 ### landscape mode
-![DoImagePickerController Screenshot](https://raw.github.com/donobono/DoImagePickerController/master/p4.png)
-
+![DoImagePickerController Screenshot](https://raw.github.com/donobono/DoImagePickerController/master/p4.jpg)
 
 ## Requirements
 - iOS 7.0 and greater

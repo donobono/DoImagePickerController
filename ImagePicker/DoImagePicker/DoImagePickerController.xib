@@ -13,6 +13,8 @@
                 <outlet property="cvPhotoList" destination="NWT-KZ-ZEa" id="vFa-3T-m01"/>
                 <outlet property="ivLine1" destination="vxs-FJ-4CL" id="QNZ-ca-0hn"/>
                 <outlet property="ivLine2" destination="xuh-QZ-xfS" id="Aeb-Qv-q0r"/>
+                <outlet property="ivShowMark" destination="8Ub-UN-kF9" id="axP-ER-qRJ"/>
+                <outlet property="lbSelectCount" destination="Aes-5e-n0s" id="ab4-Gj-S8q"/>
                 <outlet property="tvAlbumList" destination="OuM-nH-WaU" id="icz-iC-8hb"/>
                 <outlet property="vBottomMenu" destination="m70-sa-NHK" id="eu7-UE-Y2p"/>
                 <outlet property="vDimmed" destination="v5R-jm-nVL" id="x82-tL-iti"/>
@@ -41,8 +43,8 @@
                         <outlet property="delegate" destination="-1" id="HH1-75-IBr"/>
                     </connections>
                 </collectionView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="j0i-qC-Y6W">
-                    <rect key="frame" x="265" y="5" width="50" height="50"/>
+                <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="j0i-qC-Y6W">
+                    <rect key="frame" x="270" y="10" width="40" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                     <state key="normal" image="up.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -51,8 +53,8 @@
                         <action selector="onUp:" destination="-1" eventType="touchUpInside" id="nzJ-SE-iEC"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cGZ-TM-6a7">
-                    <rect key="frame" x="265" y="463" width="50" height="50"/>
+                <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cGZ-TM-6a7">
+                    <rect key="frame" x="270" y="468" width="40" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <state key="normal" image="down.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -63,12 +65,12 @@
                 </button>
                 <view alpha="0.69999999999999996" contentMode="scaleToFill" id="v5R-jm-nVL" userLabel="View : dimmed layer">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="109"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" id="OuM-nH-WaU">
                     <rect key="frame" x="0.0" y="428" width="320" height="140"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <color key="backgroundColor" white="1" alpha="0.95000000000000007" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="ahk-Yc-o1b"/>
@@ -101,19 +103,19 @@
                         </button>
                         <imageView userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="vxs-FJ-4CL">
                             <rect key="frame" x="200" y="0.0" width="1" height="50"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="xuh-QZ-xfS">
                             <rect key="frame" x="260" y="0.0" width="1" height="50"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JCk-XP-hr7">
-                            <rect key="frame" x="0.0" y="0.0" width="196" height="50"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <rect key="frame" x="0.0" y="0.0" width="200" height="50"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="16"/>
-                            <inset key="contentEdgeInsets" minX="6" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Button">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -121,6 +123,17 @@
                                 <action selector="onSelectAlbum:" destination="-1" eventType="touchUpInside" id="tFY-31-UXF"/>
                             </connections>
                         </button>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/4" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Aes-5e-n0s">
+                            <rect key="frame" x="152" y="15" width="42" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="13"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="show.png" id="8Ub-UN-kF9">
+                            <rect key="frame" x="6" y="21" width="10" height="8"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" red="0.94117653369999998" green="0.7254902124" blue="0.40392160420000001" alpha="0.5" colorSpace="deviceRGB"/>
                 </view>
@@ -134,6 +147,7 @@
         <image name="check.png" width="20" height="20"/>
         <image name="close.png" width="20" height="20"/>
         <image name="down.png" width="20" height="20"/>
+        <image name="show.png" width="10" height="8"/>
         <image name="up.png" width="20" height="20"/>
     </resources>
 </document>

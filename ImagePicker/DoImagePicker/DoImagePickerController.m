@@ -48,8 +48,7 @@
             _btSelectAlbum.enabled = NO;
         
         // calculate tableview's height
-        _tvAlbumList.frame = CGRectMake(_tvAlbumList.frame.origin.x, _tvAlbumList.frame.origin.y, _tvAlbumList.frame.size.width, MIN(aGroups.count * 50, 300) + 3);
-
+        _tvAlbumList.frame = CGRectMake(_tvAlbumList.frame.origin.x, _tvAlbumList.frame.origin.y, _tvAlbumList.frame.size.width, MIN(aGroups.count * 50, 200));
     }];
 
     // new photo is located at the first of array
@@ -57,12 +56,17 @@
 	
 	if (_nMaxCount > 1)
 	{
-		_dSelect = [[NSMutableDictionary alloc] initWithCapacity:_nMaxCount];
+		_dSelected = [[NSMutableDictionary alloc] initWithCapacity:_nMaxCount];
 		
 		// init gesture for multiple selection with panning
-		UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+		UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPanForSelection:)];
 		[self.view addGestureRecognizer:pan];
 	}
+
+    // init gesture for preview
+    UILongPressGestureRecognizer *longTap = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongTapForPreview:)];
+    longTap.minimumPressDuration = 0.3;
+    [self.view addGestureRecognizer:longTap];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -75,11 +79,11 @@
 - (void)initBottomMenu
 {
     _vBottomMenu.backgroundColor = DO_MENU_BACK_COLOR;
-    [_btSelectAlbum setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_btSelectAlbum setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
+    [_btSelectAlbum setTitleColor:DO_BOTTOM_TEXT_COLOR forState:UIControlStateNormal];
+    [_btSelectAlbum setTitleColor:DO_BOTTOM_TEXT_COLOR forState:UIControlStateDisabled];
     
-    _ivLine1.frame = CGRectMake(_ivLine1.frame.origin.x, _ivLine1.frame.origin.y, 0.5, _ivLine1.frame.size.height);
-    _ivLine2.frame = CGRectMake(_ivLine2.frame.origin.x, _ivLine2.frame.origin.y, 0.5, _ivLine2.frame.size.height);
+    _ivLine1.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"line.png"]];
+    _ivLine2.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"line.png"]];
     
     if (_nMaxCount <= 1)
     {
@@ -90,22 +94,29 @@
         CGRect rect = _btSelectAlbum.frame;
         rect.size.width = rect.size.width + 60;
         _btSelectAlbum.frame = rect;
+        
+        _lbSelectCount.hidden = YES;
+    }
+    else
+    {
+        _lbSelectCount.text = [NSString stringWithFormat:@"(0/%ld)", _nMaxCount];
+        _lbSelectCount.textColor = DO_BOTTOM_TEXT_COLOR;
     }
 }
 
 - (IBAction)onSelectPhoto:(id)sender
 {
-    NSMutableArray *aResult = [[NSMutableArray alloc] initWithCapacity:_dSelect.count];
-    NSArray *aKeys = _dSelect.allKeys;
+    NSMutableArray *aResult = [[NSMutableArray alloc] initWithCapacity:_dSelected.count];
+    NSArray *aKeys = _dSelected.allKeys;
 
     if (_nResultType == DO_PICKER_RESULT_UIIMAGE)
     {
-        for (int i = 0; i < _dSelect.count; i++)
+        for (int i = 0; i < _dSelected.count; i++)
             [aResult addObject:[ASSETHELPER getImageAtIndex:[aKeys[i] integerValue] type:ASSET_PHOTO_SCREEN_SIZE]];
     }
     else
     {
-        for (int i = 0; i < _dSelect.count; i++)
+        for (int i = 0; i < _dSelected.count; i++)
             [aResult addObject:[ASSETHELPER getAssetAtIndex:i]];
     }
 
@@ -130,16 +141,7 @@
                                             _tvAlbumList.frame.size.width, _tvAlbumList.frame.size.height);
             _tvAlbumList.alpha = 1.0;
             
-            
-        } completion:^(BOOL finished) {
-            
-            [UIView animateWithDuration:0.1 animations:^(void) {
-                
-                _tvAlbumList.frame = CGRectMake(0, _vBottomMenu.frame.origin.y - _tvAlbumList.frame.size.height + 3,
-                                                _tvAlbumList.frame.size.width, _tvAlbumList.frame.size.height);
-                
-            }];
-            
+            _ivShowMark.transform = CGAffineTransformMakeRotation(M_PI);
         }];
     }
     else
@@ -156,6 +158,14 @@
     _btUp.backgroundColor = DO_SIDE_BUTTON_COLOR;
     _btDown.backgroundColor = DO_SIDE_BUTTON_COLOR;
     
+    CALayer *layer1 = [_btDown layer];
+	[layer1 setMasksToBounds:YES];
+	[layer1 setCornerRadius:_btDown.frame.size.height / 2.0 - 1];
+
+    CALayer *layer2 = [_btUp layer];
+	[layer2 setMasksToBounds:YES];
+	[layer2 setCornerRadius:_btUp.frame.size.height / 2.0 - 1];
+
     // table view
     UIImageView *ivHeader = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _tvAlbumList.frame.size.width, 0.5)];
     ivHeader.backgroundColor = DO_ALBUM_NAME_TEXT_COLOR;
@@ -177,6 +187,9 @@
     if (tap.state == UIGestureRecognizerStateEnded)
     {
         [self hideBottomMenu];
+        
+        if (_ivPreview != nil)
+            [self hidePreview];
     }
 }
 
@@ -227,8 +240,11 @@
         _vDimmed.alpha = 0.0;
         
         _tvAlbumList.frame = CGRectMake(0, _vBottomMenu.frame.origin.y, _tvAlbumList.frame.size.width, _tvAlbumList.frame.size.height);
-        _tvAlbumList.alpha = 0.0;
+        _ivShowMark.transform = CGAffineTransformMakeRotation(0);
         
+        [UIView setAnimationDelay:0.1];
+
+        _tvAlbumList.alpha = 0.0;
     }];
 }
 
@@ -244,7 +260,7 @@
 
     cell.ivPhoto.image = [ASSETHELPER getImageAtIndex:indexPath.row type:ASSET_PHOTO_THUMBNAIL];
 
-	if (_dSelect[@(indexPath.row)] == nil)
+	if (_dSelected[@(indexPath.row)] == nil)
 		[cell setSelectMode:NO];
     else
 		[cell setSelectMode:YES];
@@ -269,19 +285,20 @@
 	{
 		DoPhotoCell *cell = (DoPhotoCell *)[collectionView cellForItemAtIndexPath:indexPath];
 
-		if ((_dSelect[@(indexPath.row)] == nil) && (_nMaxCount > _dSelect.count))
+		if ((_dSelected[@(indexPath.row)] == nil) && (_nMaxCount > _dSelected.count))
 		{
 			// select
-			_dSelect[@(indexPath.row)] = @"Y";
+			_dSelected[@(indexPath.row)] = @"Y";
 			[cell setSelectMode:YES];
 		}
 		else
 		{
 			// unselect
-			[_dSelect removeObjectForKey:@(indexPath.row)];
+			[_dSelected removeObjectForKey:@(indexPath.row)];
 			[cell setSelectMode:NO];
 		}
 
+        _lbSelectCount.text = [NSString stringWithFormat:@"(%ld/%ld)", _dSelected.count, _nMaxCount];
 	}
 }
 
@@ -320,8 +337,11 @@
 }
 
 // for multiple selection with panning
-- (void)handleGesture:(UIPanGestureRecognizer *)gestureRecognizer
+- (void)onPanForSelection:(UIPanGestureRecognizer *)gestureRecognizer
 {
+    if (_ivPreview != nil)
+        return;
+    
     double fX = [gestureRecognizer locationInView:_cvPhotoList].x;
     double fY = [gestureRecognizer locationInView:_cvPhotoList].y;
 	
@@ -352,6 +372,37 @@
     }
 }
 
+// for preview
+- (void)onLongTapForPreview:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    if (_ivPreview != nil)
+        return;
+    
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
+    {
+        double fX = [gestureRecognizer locationInView:_cvPhotoList].x;
+        double fY = [gestureRecognizer locationInView:_cvPhotoList].y;
+        
+        NSIndexPath *indexPath = nil;
+        for (UICollectionViewCell *cell in _cvPhotoList.visibleCells)
+        {
+            float fSX = cell.frame.origin.x;
+            float fEX = cell.frame.origin.x + cell.frame.size.width;
+            float fSY = cell.frame.origin.y;
+            float fEY = cell.frame.origin.y + cell.frame.size.height;
+            
+            if (fX >= fSX && fX <= fEX && fY >= fSY && fY <= fEY)
+            {
+                indexPath = [_cvPhotoList indexPathForCell:cell];
+                break;
+            }
+        }
+        
+        if (indexPath != nil)
+            [self showPreview:indexPath.row];
+    }
+}
+
 #pragma mark - for photos
 - (void)showPhotosInGroup:(NSInteger)nIndex
 {
@@ -375,8 +426,79 @@
         dispatch_async(dispatch_get_main_queue(), ^(void) {
             if (_cvPhotoList.contentSize.height < _cvPhotoList.frame.size.height)
                 _btDown.alpha = 0.0;
+            else
+                _btDown.alpha = 1.0;
         });
     }];
+}
+
+- (void)showPreview:(NSInteger)nIndex
+{
+    [self.view bringSubviewToFront:_vDimmed];
+    
+    _ivPreview = [[UIImageView alloc] initWithFrame:_vDimmed.frame];
+    _ivPreview.contentMode = UIViewContentModeScaleAspectFit;
+    _ivPreview.autoresizingMask = _vDimmed.autoresizingMask;
+    [_vDimmed addSubview:_ivPreview];
+    
+    _ivPreview.image = [ASSETHELPER getImageAtIndex:nIndex type:ASSET_PHOTO_SCREEN_SIZE];
+    
+    // add gesture for close preview
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPanToClosePreview:)];
+    [_vDimmed addGestureRecognizer:pan];
+    
+    [UIView animateWithDuration:0.2 animations:^(void) {
+        _vDimmed.alpha = 1.0;
+    }];
+}
+
+- (void)hidePreview
+{
+    [self.view bringSubviewToFront:_tvAlbumList];
+    [self.view bringSubviewToFront:_vBottomMenu];
+    
+    [_ivPreview removeFromSuperview];
+    _ivPreview = nil;
+
+    _vDimmed.alpha = 0.0;
+    [_vDimmed removeGestureRecognizer:[_vDimmed.gestureRecognizers lastObject]];
+}
+
+- (void)onPanToClosePreview:(UIPanGestureRecognizer *)gestureRecognizer
+{
+    CGPoint translation = [gestureRecognizer translationInView:self.view];
+
+    if (gestureRecognizer.state == UIGestureRecognizerStateEnded)
+    {
+        [UIView animateWithDuration:0.2 animations:^(void) {
+            
+            if (_vDimmed.alpha < 0.7)   // close preview
+            {
+                CGPoint pt = _ivPreview.center;
+                if (_ivPreview.center.y > _vDimmed.center.y)
+                    pt.y = self.view.frame.size.height * 1.5;
+                else if (_ivPreview.center.y < _vDimmed.center.y)
+                    pt.y = -self.view.frame.size.height * 1.5;
+
+                _ivPreview.center = pt;
+
+                [self hidePreview];
+            }
+            else
+            {
+                _vDimmed.alpha = 1.0;
+                _ivPreview.center = _vDimmed.center;
+            }
+            
+        }];
+    }
+    else
+    {
+		_ivPreview.center = CGPointMake(_ivPreview.center.x, _ivPreview.center.y + translation.y);
+		[gestureRecognizer setTranslation:CGPointMake(0, 0) inView:self.view];
+        
+        _vDimmed.alpha = 1 - ABS(_ivPreview.center.y - _vDimmed.center.y) / (self.view.frame.size.height / 2.0);
+    }
 }
 
 #pragma mark - Others

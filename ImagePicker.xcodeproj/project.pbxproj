@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		731D67CA18A087A5002BAEF6 /* line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 731D67C918A087A5002BAEF6 /* line@2x.png */; };
+		731D67CE18A0D066002BAEF6 /* show.png in Resources */ = {isa = PBXBuildFile; fileRef = 731D67CC18A0D066002BAEF6 /* show.png */; };
+		731D67CF18A0D066002BAEF6 /* show@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 731D67CD18A0D066002BAEF6 /* show@2x.png */; };
 		73238CEB1890AAC60047DDA0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73238CEA1890AAC60047DDA0 /* Foundation.framework */; };
 		73238CED1890AAC60047DDA0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73238CEC1890AAC60047DDA0 /* CoreGraphics.framework */; };
 		73238CEF1890AAC60047DDA0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73238CEE1890AAC60047DDA0 /* UIKit.framework */; };
@@ -50,6 +53,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		731D67C918A087A5002BAEF6 /* line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line@2x.png"; sourceTree = "<group>"; };
+		731D67CC18A0D066002BAEF6 /* show.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = show.png; sourceTree = "<group>"; };
+		731D67CD18A0D066002BAEF6 /* show@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "show@2x.png"; sourceTree = "<group>"; };
 		73238CE71890AAC60047DDA0 /* ImagePicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImagePicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73238CEA1890AAC60047DDA0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		73238CEC1890AAC60047DDA0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -222,6 +228,9 @@
 		73E1110718914C260011CBD3 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				731D67C918A087A5002BAEF6 /* line@2x.png */,
+				731D67CC18A0D066002BAEF6 /* show.png */,
+				731D67CD18A0D066002BAEF6 /* show@2x.png */,
 				73E1111018915AEA0011CBD3 /* check.png */,
 				73E1111118915AEA0011CBD3 /* close.png */,
 				73E1111218915AEA0011CBD3 /* down.png */,
@@ -322,8 +331,11 @@
 				73E1111518915AEA0011CBD3 /* close.png in Resources */,
 				73238CFE1890AAC60047DDA0 /* Main.storyboard in Resources */,
 				73E1110E18914C260011CBD3 /* down@2x.png in Resources */,
+				731D67CA18A087A5002BAEF6 /* line@2x.png in Resources */,
+				731D67CE18A0D066002BAEF6 /* show.png in Resources */,
 				73238D4F1890DC4C0047DDA0 /* DoPhotoCell.xib in Resources */,
 				73E1110C18914C260011CBD3 /* check@2x.png in Resources */,
+				731D67CF18A0D066002BAEF6 /* show@2x.png in Resources */,
 				73E1110D18914C260011CBD3 /* close@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

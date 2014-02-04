@@ -22,6 +22,15 @@ An image picker controller with single selection and multiple selection. Support
 - ARC
 
 
+## Features
+- adjustable column count : 2 ~ 4
+- adjustable count to select photos
+- multiple selection with pan gesture
+- landscape mode
+- go top or botom directly by tapping right side buttons
+- long tap on thumbnail to show preview
+- tap or drag preview to close preview
+
 
 ## Examples
 

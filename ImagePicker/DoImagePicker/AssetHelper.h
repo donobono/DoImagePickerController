@@ -1,9 +1,8 @@
 //
-//  AssetHelper.h
-//  ChatUX
+//  AssetHelper.m
+//  DoImagePickerController
 //
-//  Created by Seungbo Cho on 13. 7. 4..
-//  Copyright (c) 2013년 Seungbo Cho. All rights reserved.
+//  Created by Donobono on 2014. 1. 23..
 //
 
 #import <Foundation/Foundation.h>

@@ -1,9 +1,8 @@
 //
 //  DoImagePickerController.m
-//  ImagePicker
+//  DoImagePickerController
 //
-//  Created by Seungbo Cho on 2014. 1. 23..
-//  Copyright (c) 2014년 Seungbo Cho. All rights reserved.
+//  Created by Donobono on 2014. 1. 23..
 //
 
 #import "DoImagePickerController.h"
@@ -35,7 +34,77 @@
     
     _tvAlbumList.frame = CGRectMake(0, _vBottomMenu.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
     _tvAlbumList.alpha = 0.0;
+
+    [self readAlbumList];
+
+    // new photo is located at the first of array
+    ASSETHELPER.bReverse = YES;
+	
+	if (_nMaxCount > 1)
+	{
+		// init gesture for multiple selection with panning
+		UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPanForSelection:)];
+		[self.view addGestureRecognizer:pan];
+	}
+
+    // init gesture for preview
+    UILongPressGestureRecognizer *longTap = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongTapForPreview:)];
+    longTap.minimumPressDuration = 0.3;
+    [self.view addGestureRecognizer:longTap];
     
+    // add observer for refresh asset data
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(handleEnterForeground:)
+                                                 name: UIApplicationWillEnterForegroundNotification
+                                               object: nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    if (_nResultType == DO_PICKER_RESULT_UIIMAGE)
+        [ASSETHELPER clearData];
+    
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+}
+
+- (void)handleEnterForeground:(NSNotification*)notification
+{
+    [self readAlbumList];
+}
+
+#pragma mark - for init
+- (void)initControls
+{
+    // side buttons
+    _btUp.backgroundColor = DO_SIDE_BUTTON_COLOR;
+    _btDown.backgroundColor = DO_SIDE_BUTTON_COLOR;
+    
+    CALayer *layer1 = [_btDown layer];
+	[layer1 setMasksToBounds:YES];
+	[layer1 setCornerRadius:_btDown.frame.size.height / 2.0 - 1];
+    
+    CALayer *layer2 = [_btUp layer];
+	[layer2 setMasksToBounds:YES];
+	[layer2 setCornerRadius:_btUp.frame.size.height / 2.0 - 1];
+    
+    // table view
+    UIImageView *ivHeader = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _tvAlbumList.frame.size.width, 0.5)];
+    ivHeader.backgroundColor = DO_ALBUM_NAME_TEXT_COLOR;
+    _tvAlbumList.tableHeaderView = ivHeader;
+    
+    UIImageView *ivFooter = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _tvAlbumList.frame.size.width, 0.5)];
+    ivFooter.backgroundColor = DO_ALBUM_NAME_TEXT_COLOR;
+    _tvAlbumList.tableFooterView = ivFooter;
+    
+    // dimmed view
+    _vDimmed.alpha = 0.0;
+    _vDimmed.frame = self.view.frame;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapOnDimmedView:)];
+    [_vDimmed addGestureRecognizer:tap];
+}
+
+- (void)readAlbumList
+{
     [ASSETHELPER getGroupList:^(NSArray *aGroups) {
         
         [_tvAlbumList reloadData];
@@ -50,29 +119,6 @@
         // calculate tableview's height
         _tvAlbumList.frame = CGRectMake(_tvAlbumList.frame.origin.x, _tvAlbumList.frame.origin.y, _tvAlbumList.frame.size.width, MIN(aGroups.count * 50, 200));
     }];
-
-    // new photo is located at the first of array
-    ASSETHELPER.bReverse = YES;
-	
-	if (_nMaxCount > 1)
-	{
-		_dSelected = [[NSMutableDictionary alloc] initWithCapacity:_nMaxCount];
-		
-		// init gesture for multiple selection with panning
-		UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPanForSelection:)];
-		[self.view addGestureRecognizer:pan];
-	}
-
-    // init gesture for preview
-    UILongPressGestureRecognizer *longTap = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongTapForPreview:)];
-    longTap.minimumPressDuration = 0.3;
-    [self.view addGestureRecognizer:longTap];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    if (_nResultType == DO_PICKER_RESULT_UIIMAGE)
-        [ASSETHELPER clearData];
 }
 
 #pragma mark - for bottom menu
@@ -99,7 +145,7 @@
     }
     else
     {
-        _lbSelectCount.text = [NSString stringWithFormat:@"(0/%ld)", _nMaxCount];
+        _lbSelectCount.text = [NSString stringWithFormat:@"(0/%d)", (int)_nMaxCount];
         _lbSelectCount.textColor = DO_BOTTOM_TEXT_COLOR;
     }
 }
@@ -107,7 +153,7 @@
 - (IBAction)onSelectPhoto:(id)sender
 {
     NSMutableArray *aResult = [[NSMutableArray alloc] initWithCapacity:_dSelected.count];
-    NSArray *aKeys = _dSelected.allKeys;
+    NSArray *aKeys = [_dSelected keysSortedByValueUsingSelector:@selector(compare:)];
 
     if (_nResultType == DO_PICKER_RESULT_UIIMAGE)
     {
@@ -125,6 +171,9 @@
 
 - (IBAction)onCancel:(id)sender
 {
+    NSLog(@"keys : %@", _dSelected.allKeys );
+    NSLog(@"values : %@", _dSelected);
+    
     [_delegate didCancelDoImagePickerController];
 }
 
@@ -152,36 +201,6 @@
 }
 
 #pragma mark - for side buttons
-- (void)initControls
-{
-    // side buttons
-    _btUp.backgroundColor = DO_SIDE_BUTTON_COLOR;
-    _btDown.backgroundColor = DO_SIDE_BUTTON_COLOR;
-    
-    CALayer *layer1 = [_btDown layer];
-	[layer1 setMasksToBounds:YES];
-	[layer1 setCornerRadius:_btDown.frame.size.height / 2.0 - 1];
-
-    CALayer *layer2 = [_btUp layer];
-	[layer2 setMasksToBounds:YES];
-	[layer2 setCornerRadius:_btUp.frame.size.height / 2.0 - 1];
-
-    // table view
-    UIImageView *ivHeader = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _tvAlbumList.frame.size.width, 0.5)];
-    ivHeader.backgroundColor = DO_ALBUM_NAME_TEXT_COLOR;
-    _tvAlbumList.tableHeaderView = ivHeader;
-
-    UIImageView *ivFooter = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _tvAlbumList.frame.size.width, 0.5)];
-    ivFooter.backgroundColor = DO_ALBUM_NAME_TEXT_COLOR;
-    _tvAlbumList.tableFooterView = ivFooter;
-    
-    // dimmed view
-    _vDimmed.alpha = 0.0;
-    _vDimmed.frame = self.view.frame;
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapOnDimmedView:)];
-    [_vDimmed addGestureRecognizer:tap];
-}
-
 - (void)onTapOnDimmedView:(UITapGestureRecognizer *)tap
 {
     if (tap.state == UIGestureRecognizerStateEnded)
@@ -288,7 +307,7 @@
 		if ((_dSelected[@(indexPath.row)] == nil) && (_nMaxCount > _dSelected.count))
 		{
 			// select
-			_dSelected[@(indexPath.row)] = @"Y";
+			_dSelected[@(indexPath.row)] = @(_dSelected.count);
 			[cell setSelectMode:YES];
 		}
 		else
@@ -298,12 +317,8 @@
 			[cell setSelectMode:NO];
 		}
 
-        _lbSelectCount.text = [NSString stringWithFormat:@"(%ld/%ld)", _dSelected.count, _nMaxCount];
+        _lbSelectCount.text = [NSString stringWithFormat:@"(%d/%d)", (int)_dSelected.count, (int)_nMaxCount];
 	}
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
-{
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -406,6 +421,12 @@
 #pragma mark - for photos
 - (void)showPhotosInGroup:(NSInteger)nIndex
 {
+    if (_nMaxCount > 1)
+    {
+        _dSelected = [[NSMutableDictionary alloc] initWithCapacity:_nMaxCount];
+        _lbSelectCount.text = [NSString stringWithFormat:@"(0/%d)", (int)_nMaxCount];
+    }
+    
     [ASSETHELPER getPhotoListOfGroupByIndex:nIndex result:^(NSArray *aPhotos) {
         
         [_cvPhotoList reloadData];

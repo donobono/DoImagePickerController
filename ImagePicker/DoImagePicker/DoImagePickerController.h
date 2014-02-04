@@ -1,9 +1,8 @@
 //
 //  DoImagePickerController.h
-//  ImagePicker
+//  DoImagePickerController
 //
-//  Created by Seungbo Cho on 2014. 1. 23..
-//  Copyright (c) 2014년 Seungbo Cho. All rights reserved.
+//  Created by Donobono on 2014. 1. 23..
 //
 
 #import <UIKit/UIKit.h>
@@ -34,6 +33,11 @@
 @property (weak, nonatomic) IBOutlet UIView             *vDimmed;
 
 
+// init
+- (void)initControls;
+- (void)readAlbumList;
+
+
 // bottom menu
 @property (weak, nonatomic) IBOutlet UIView             *vBottomMenu;
 @property (weak, nonatomic) IBOutlet UIButton           *btSelectAlbum;
@@ -54,7 +58,6 @@
 @property (weak, nonatomic) IBOutlet UIButton           *btUp;
 @property (weak, nonatomic) IBOutlet UIButton           *btDown;
 
-- (void)initControls;
 - (IBAction)onUp:(id)sender;
 - (IBAction)onDown:(id)sender;
 

@@ -1,9 +1,8 @@
 //
 //  DoAlbumCell.m
-//  ImagePicker
+//  DoImagePickerController
 //
-//  Created by Seungbo Cho on 2014. 1. 23..
-//  Copyright (c) 2014년 Seungbo Cho. All rights reserved.
+//  Created by Donobono on 2014. 1. 23..
 //
 
 #import "DoAlbumCell.h"

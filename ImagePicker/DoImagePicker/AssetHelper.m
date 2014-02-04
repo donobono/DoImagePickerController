@@ -173,7 +173,7 @@
         NSString *strXMP = rep.metadata[@"AdjustmentXMP"];
         if (strXMP == nil || [strXMP isKindOfClass:[NSNull class]])
         {
-            CGImageRef iref = [rep fullResolutionImage];//[rep fullResolutionImage];
+            CGImageRef iref = [rep fullResolutionImage];
             if (iref)
                 iImage = [UIImage imageWithCGImage:iref scale:1.0 orientation:(UIImageOrientation)rep.orientation];
             else
@@ -181,6 +181,7 @@
         }
         else
         {
+            // to get edited photo by photo app
             NSData *dXMP = [strXMP dataUsingEncoding:NSUTF8StringEncoding];
             
             CIImage *image = [CIImage imageWithCGImage:rep.fullResolutionImage];

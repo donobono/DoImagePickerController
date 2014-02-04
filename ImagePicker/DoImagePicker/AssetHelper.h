@@ -26,9 +26,13 @@
 
 + (AssetHelper *)sharedAssetHelper;
 
+// get album list from asset
 - (void)getGroupList:(void (^)(NSArray *))result;
+// get photos from specific album with ALAssetsGroup object
 - (void)getPhotoListOfGroup:(ALAssetsGroup *)alGroup result:(void (^)(NSArray *))result;
+// get photos from specific album with index of album array
 - (void)getPhotoListOfGroupByIndex:(NSInteger)nGroupIndex result:(void (^)(NSArray *))result;
+// get photos from camera roll
 - (void)getSavedPhotoList:(void (^)(NSArray *))result error:(void (^)(NSError *))error;
 
 - (NSInteger)getGroupCount;

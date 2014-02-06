@@ -20,11 +20,13 @@
 #define DO_PICKER_RESULT_UIIMAGE    0
 #define DO_PICKER_RESULT_ASSET      1
 
+#define DO_NO_LIMIT_SELECT          -1
+
 @interface DoImagePickerController : UIViewController
 
 @property (assign, nonatomic) id            delegate;
 
-@property (readwrite)   NSInteger           nMaxCount;
+@property (readwrite)   NSInteger           nMaxCount;      // -1 : no limit
 @property (readwrite)   NSInteger           nColumnCount;   // 2, 3, or 4
 @property (readwrite)   NSInteger           nResultType;    // default : DO_PICKER_RESULT_UIIMAGE
 

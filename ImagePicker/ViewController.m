@@ -21,7 +21,7 @@
     
     _aIVs = @[_iv1, _iv2, _iv3, _iv4];
     _sgColumnCount.selectedSegmentIndex = 1;
-    _sgMaxCount.selectedSegmentIndex    = 2;
+    _sgMaxCount.selectedSegmentIndex    = 1;
 }
 
 - (void)didReceiveMemoryWarning
@@ -37,16 +37,18 @@
 	
     DoImagePickerController *cont = [[DoImagePickerController alloc] initWithNibName:@"DoImagePickerController" bundle:nil];
     cont.delegate = self;
+    cont.nResultType = DO_PICKER_RESULT_UIIMAGE;
     if (_sgMaxCount.selectedSegmentIndex == 0)
         cont.nMaxCount = 1;
     else if (_sgMaxCount.selectedSegmentIndex == 1)
-        cont.nMaxCount = 2;
-    else if (_sgMaxCount.selectedSegmentIndex == 2)
         cont.nMaxCount = 4;
+    else if (_sgMaxCount.selectedSegmentIndex == 2)
+    {
+        cont.nMaxCount = DO_NO_LIMIT_SELECT;
+        cont.nResultType = DO_PICKER_RESULT_ASSET;  // if you want to get lots photos, you'd better use this mode for memory!!!
+    }
     
     cont.nColumnCount = _sgColumnCount.selectedSegmentIndex + 2;
-    cont.nResultType = DO_PICKER_RESULT_UIIMAGE;
-//    cont.nResultType = DO_PICKER_RESULT_ASSET;
     
     [self presentViewController:cont animated:YES completion:nil];
 }

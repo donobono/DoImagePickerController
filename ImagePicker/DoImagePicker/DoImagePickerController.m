@@ -40,7 +40,7 @@
     // new photo is located at the first of array
     ASSETHELPER.bReverse = YES;
 	
-	if (_nMaxCount > 1)
+	if (_nMaxCount != 1)
 	{
 		// init gesture for multiple selection with panning
 		UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPanForSelection:)];
@@ -131,7 +131,12 @@
     _ivLine1.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"line.png"]];
     _ivLine2.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"line.png"]];
     
-    if (_nMaxCount <= 1)
+    if (_nMaxCount == DO_NO_LIMIT_SELECT)
+    {
+        _lbSelectCount.text = @"(0)";
+        _lbSelectCount.textColor = DO_BOTTOM_TEXT_COLOR;
+    }
+    else if (_nMaxCount <= 1)
     {
         // hide ok button
         _btOK.hidden = YES;
@@ -163,7 +168,7 @@
     else
     {
         for (int i = 0; i < _dSelected.count; i++)
-            [aResult addObject:[ASSETHELPER getAssetAtIndex:i]];
+            [aResult addObject:[ASSETHELPER getAssetAtIndex:[aKeys[i] integerValue]]];
     }
 
     [_delegate didSelectPhotosFromDoImagePickerController:self result:aResult];
@@ -289,21 +294,10 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_nMaxCount <= 1)
+    if (_nMaxCount > 1 || _nMaxCount == DO_NO_LIMIT_SELECT)
     {
-        if (_nResultType == DO_PICKER_RESULT_UIIMAGE)
-        {
-            [_delegate didSelectPhotosFromDoImagePickerController:self result:@[[ASSETHELPER getImageAtIndex:indexPath.row type:ASSET_PHOTO_SCREEN_SIZE]]];
-        }
-        else
-        {
-            [_delegate didSelectPhotosFromDoImagePickerController:self result:@[[ASSETHELPER getAssetAtIndex:indexPath.row]]];
-        }
-    }
-	else
-	{
 		DoPhotoCell *cell = (DoPhotoCell *)[collectionView cellForItemAtIndexPath:indexPath];
-
+        
 		if ((_dSelected[@(indexPath.row)] == nil) && (_nMaxCount > _dSelected.count))
 		{
 			// select
@@ -316,9 +310,19 @@
 			[_dSelected removeObjectForKey:@(indexPath.row)];
 			[cell setSelectMode:NO];
 		}
-
-        _lbSelectCount.text = [NSString stringWithFormat:@"(%d/%d)", (int)_dSelected.count, (int)_nMaxCount];
-	}
+        
+        if (_nMaxCount == DO_NO_LIMIT_SELECT)
+            _lbSelectCount.text = [NSString stringWithFormat:@"(%d)", (int)_dSelected.count];
+        else
+            _lbSelectCount.text = [NSString stringWithFormat:@"(%d/%d)", (int)_dSelected.count, (int)_nMaxCount];
+    }
+    else
+    {
+        if (_nResultType == DO_PICKER_RESULT_UIIMAGE)
+            [_delegate didSelectPhotosFromDoImagePickerController:self result:@[[ASSETHELPER getImageAtIndex:indexPath.row type:ASSET_PHOTO_SCREEN_SIZE]]];
+        else
+            [_delegate didSelectPhotosFromDoImagePickerController:self result:@[[ASSETHELPER getAssetAtIndex:indexPath.row]]];
+    }
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -421,7 +425,12 @@
 #pragma mark - for photos
 - (void)showPhotosInGroup:(NSInteger)nIndex
 {
-    if (_nMaxCount > 1)
+    if (_nMaxCount == DO_NO_LIMIT_SELECT)
+    {
+        _dSelected = [[NSMutableDictionary alloc] init];
+        _lbSelectCount.text = @"(0)";
+    }
+    else if (_nMaxCount > 1)
     {
         _dSelected = [[NSMutableDictionary alloc] initWithCapacity:_nMaxCount];
         _lbSelectCount.text = [NSString stringWithFormat:@"(0/%d)", (int)_nMaxCount];

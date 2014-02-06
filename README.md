@@ -5,6 +5,8 @@ An image picker controller with single selection and multiple selection. Support
 
 ## Preview
 
+http://www.youtube.com/watch?v=8JDXPZYHkAA
+
 ### various column count : 2, 3 and 4
 ![DoImagePickerController Screenshot](https://raw.github.com/donobono/DoImagePickerController/master/p1.jpg)
 

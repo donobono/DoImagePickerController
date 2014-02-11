@@ -22,6 +22,10 @@
 
 #define DO_NO_LIMIT_SELECT          -1
 
+
+// if you don't want to save selected album, remove this.
+#define DO_SAVE_SELECTED_ALBUM
+
 @interface DoImagePickerController : UIViewController
 
 @property (assign, nonatomic) id            delegate;
@@ -37,8 +41,7 @@
 
 // init
 - (void)initControls;
-- (void)readAlbumList;
-
+- (void)readAlbumList:(BOOL)bFirst;
 
 // bottom menu
 @property (weak, nonatomic) IBOutlet UIView             *vBottomMenu;

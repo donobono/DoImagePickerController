@@ -35,6 +35,21 @@
     }
 }
 
+- (void)setCameraRollAtFirst
+{
+    for (ALAssetsGroup *group in _assetGroups)
+    {
+        if ([[group valueForProperty:@"ALAssetsGroupPropertyType"] intValue] == ALAssetsGroupSavedPhotos)
+        {
+            // send to head
+            [_assetGroups removeObject:group];
+            [_assetGroups insertObject:group atIndex:0];
+            
+            return;
+        }
+    }
+}
+
 - (void)getGroupList:(void (^)(NSArray *))result
 {
     [self initAsset];
@@ -47,6 +62,8 @@
         {
             if (_bReverse)
                 _assetGroups = [[NSMutableArray alloc] initWithArray:[[_assetGroups reverseObjectEnumerator] allObjects]];
+            
+            [self setCameraRollAtFirst];
             
             // end of enumeration
             result(_assetGroups);
@@ -263,6 +280,11 @@
 - (ALAsset *)getAssetAtIndex:(NSInteger)nIndex
 {
     return _assetPhotos[nIndex];
+}
+
+- (ALAssetsGroup *)getGroupAtIndex:(NSInteger)nIndex
+{
+    return _assetGroups[nIndex];
 }
 
 @end

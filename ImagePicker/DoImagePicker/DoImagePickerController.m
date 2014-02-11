@@ -35,7 +35,7 @@
     _tvAlbumList.frame = CGRectMake(0, _vBottomMenu.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
     _tvAlbumList.alpha = 0.0;
 
-    [self readAlbumList];
+    [self readAlbumList:YES];
 
     // new photo is located at the first of array
     ASSETHELPER.bReverse = YES;
@@ -69,7 +69,7 @@
 
 - (void)handleEnterForeground:(NSNotification*)notification
 {
-    [self readAlbumList];
+    [self readAlbumList:NO];
 }
 
 #pragma mark - for init
@@ -103,15 +103,22 @@
     [_vDimmed addGestureRecognizer:tap];
 }
 
-- (void)readAlbumList
+- (void)readAlbumList:(BOOL)bFirst
 {
     [ASSETHELPER getGroupList:^(NSArray *aGroups) {
         
         [_tvAlbumList reloadData];
-        [_tvAlbumList selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+
+        NSInteger nIndex = 0;
+#ifdef DO_SAVE_SELECTED_ALBUM
+        nIndex = [self getSelectedGroupIndex:aGroups];
+        if (nIndex < 0)
+            nIndex = 0;
+#endif
+        [_tvAlbumList selectRowAtIndexPath:[NSIndexPath indexPathForRow:nIndex inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+        [_btSelectAlbum setTitle:[ASSETHELPER getGroupInfo:nIndex][@"name"] forState:UIControlStateNormal];
         
-        [_btSelectAlbum setTitle:[ASSETHELPER getGroupInfo:0][@"name"] forState:UIControlStateNormal];
-        [self showPhotosInGroup:0];
+        [self showPhotosInGroup:nIndex];
         
         if (aGroups.count == 1)
             _btSelectAlbum.enabled = NO;
@@ -176,9 +183,6 @@
 
 - (IBAction)onCancel:(id)sender
 {
-    NSLog(@"keys : %@", _dSelected.allKeys );
-    NSLog(@"values : %@", _dSelected);
-    
     [_delegate didCancelDoImagePickerController];
 }
 
@@ -401,6 +405,15 @@
     {
         double fX = [gestureRecognizer locationInView:_cvPhotoList].x;
         double fY = [gestureRecognizer locationInView:_cvPhotoList].y;
+
+        // check boundary of controls
+        CGPoint pt = [gestureRecognizer locationInView:self.view];
+        if (CGRectContainsPoint(_vBottomMenu.frame, pt))
+            return;
+        if (_btDown.alpha == 1.0 && CGRectContainsPoint(_btDown.frame, pt))
+            return;
+        if (_btUp.alpha == 1.0 && CGRectContainsPoint(_btUp.frame, pt))
+            return;
         
         NSIndexPath *indexPath = nil;
         for (UICollectionViewCell *cell in _cvPhotoList.visibleCells)
@@ -460,6 +473,12 @@
                 _btDown.alpha = 1.0;
         });
     }];
+    
+#ifdef DO_SAVE_SELECTED_ALBUM
+    // save selected album
+    [self saveSelectedGroup:nIndex];
+#endif
+    
 }
 
 - (void)showPreview:(NSInteger)nIndex
@@ -529,6 +548,39 @@
         
         _vDimmed.alpha = 1 - ABS(_ivPreview.center.y - _vDimmed.center.y) / (self.view.frame.size.height / 2.0);
     }
+}
+
+#pragma mark - save selected album
+- (void)saveSelectedGroup:(NSInteger)nIndex
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
+	[defaults setObject:[[ASSETHELPER getGroupAtIndex:nIndex] valueForProperty:ALAssetsGroupPropertyName] forKey:@"DO_SELECTED_ALBUM"];
+	[defaults synchronize];
+    
+    NSLog(@"[[ASSETHELPER getGroupAtIndex:nIndex] valueForProperty:ALAssetsGroupPropertyName] : %@", [[ASSETHELPER getGroupAtIndex:nIndex] valueForProperty:ALAssetsGroupPropertyName]);
+}
+
+- (NSString *)loadSelectedGroup
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
+    NSLog(@"---------> %@", [defaults objectForKey:@"DO_SELECTED_ALBUM"]);
+    
+    return [defaults objectForKey:@"DO_SELECTED_ALBUM"];
+}
+
+- (NSInteger)getSelectedGroupIndex:(NSArray *)aGroups
+{
+    NSString *strOldAlbumName = [self loadSelectedGroup];
+    for (int i = 0; i < aGroups.count; i++)
+    {
+        NSDictionary *d = [ASSETHELPER getGroupInfo:i];
+        if ([d[@"name"] isEqualToString:strOldAlbumName])
+            return i;
+    }
+    
+    return -1;
 }
 
 #pragma mark - Others

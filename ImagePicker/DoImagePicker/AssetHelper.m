@@ -248,25 +248,33 @@
     else if (nType == ASSET_PHOTO_FULL_RESOLUTION)
     {
         NSString *strXMP = asset.defaultRepresentation.metadata[@"AdjustmentXMP"];
-        NSData *dXMP = [strXMP dataUsingEncoding:NSUTF8StringEncoding];
-        
-        CIImage *image = [CIImage imageWithCGImage:asset.defaultRepresentation.fullResolutionImage];
-        
-        NSError *error = nil;
-        NSArray *filterArray = [CIFilter filterArrayFromSerializedXMP:dXMP
-                                                     inputImageExtent:image.extent
-                                                                error:&error];
-        if (error) {
-            NSLog(@"Error during CIFilter creation: %@", [error localizedDescription]);
+        if (strXMP == nil || [strXMP isKindOfClass:[NSNull class]])
+        {
+            iRef = [asset.defaultRepresentation fullResolutionImage];
+            return [UIImage imageWithCGImage:iRef scale:1.0 orientation:(UIImageOrientation)asset.defaultRepresentation.orientation];
         }
-        
-        for (CIFilter *filter in filterArray) {
-            [filter setValue:image forKey:kCIInputImageKey];
-            image = [filter outputImage];
+        else
+        {
+            NSData *dXMP = [strXMP dataUsingEncoding:NSUTF8StringEncoding];
+            
+            CIImage *image = [CIImage imageWithCGImage:asset.defaultRepresentation.fullResolutionImage];
+            
+            NSError *error = nil;
+            NSArray *filterArray = [CIFilter filterArrayFromSerializedXMP:dXMP
+                                                         inputImageExtent:image.extent
+                                                                    error:&error];
+            if (error) {
+                NSLog(@"Error during CIFilter creation: %@", [error localizedDescription]);
+            }
+            
+            for (CIFilter *filter in filterArray) {
+                [filter setValue:image forKey:kCIInputImageKey];
+                image = [filter outputImage];
+            }
+            
+            UIImage *iImage = [UIImage imageWithCIImage:image scale:1.0 orientation:(UIImageOrientation)asset.defaultRepresentation.orientation];
+            return iImage;
         }
-        
-        UIImage *iImage = [UIImage imageWithCIImage:image scale:1.0 orientation:(UIImageOrientation)asset.defaultRepresentation.orientation];
-        return iImage;
     }
     
     return [UIImage imageWithCGImage:iRef];

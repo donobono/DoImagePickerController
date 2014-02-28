@@ -170,7 +170,11 @@
     if (_nResultType == DO_PICKER_RESULT_UIIMAGE)
     {
         for (int i = 0; i < _dSelected.count; i++)
-            [aResult addObject:[ASSETHELPER getImageAtIndex:[aKeys[i] integerValue] type:ASSET_PHOTO_SCREEN_SIZE]];
+        {
+            UIImage *iSelected = [ASSETHELPER getImageAtIndex:[aKeys[i] integerValue] type:ASSET_PHOTO_SCREEN_SIZE];
+            if (iSelected != nil)
+                [aResult addObject:iSelected];
+        }
     }
     else
     {

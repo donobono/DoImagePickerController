@@ -11,8 +11,9 @@
 #define ASSETHELPER    [AssetHelper sharedAssetHelper]
 
 #define ASSET_PHOTO_THUMBNAIL           0
-#define ASSET_PHOTO_SCREEN_SIZE         1
-#define ASSET_PHOTO_FULL_RESOLUTION     2
+#define ASSET_PHOTO_ASPECT_THUMBNAIL    1
+#define ASSET_PHOTO_SCREEN_SIZE         2
+#define ASSET_PHOTO_FULL_RESOLUTION     3
 
 @interface AssetHelper : NSObject
 

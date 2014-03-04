@@ -31,6 +31,11 @@
 		73238D341890C97F0047DDA0 /* AssetHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 73238D331890C97F0047DDA0 /* AssetHelper.m */; };
 		73238D4D1890DC320047DDA0 /* DoPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 73238D4C1890DC320047DDA0 /* DoPhotoCell.m */; };
 		73238D4F1890DC4C0047DDA0 /* DoPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73238D4E1890DC4C0047DDA0 /* DoPhotoCell.xib */; };
+		7360C1D718C5A26F004A7DE4 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7360C1D118C5A26F004A7DE4 /* .gitignore */; };
+		7360C1D818C5A26F004A7DE4 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7360C1D218C5A26F004A7DE4 /* LICENSE */; };
+		7360C1D918C5A26F004A7DE4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7360C1D318C5A26F004A7DE4 /* README.md */; };
+		7360C1DA18C5A26F004A7DE4 /* UIImage+ResizeMagick.m in Sources */ = {isa = PBXBuildFile; fileRef = 7360C1D518C5A26F004A7DE4 /* UIImage+ResizeMagick.m */; };
+		7360C1DB18C5A26F004A7DE4 /* UIImage-ResizeMagick.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 7360C1D618C5A26F004A7DE4 /* UIImage-ResizeMagick.podspec */; };
 		73C76E3518A109A8001C60EB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 73C76E3418A109A8001C60EB /* README.md */; };
 		73E1110C18914C260011CBD3 /* check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73E1110818914C260011CBD3 /* check@2x.png */; };
 		73E1110D18914C260011CBD3 /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73E1110918914C260011CBD3 /* close@2x.png */; };
@@ -86,6 +91,12 @@
 		73238D4B1890DC320047DDA0 /* DoPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoPhotoCell.h; sourceTree = "<group>"; };
 		73238D4C1890DC320047DDA0 /* DoPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoPhotoCell.m; sourceTree = "<group>"; };
 		73238D4E1890DC4C0047DDA0 /* DoPhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DoPhotoCell.xib; sourceTree = "<group>"; };
+		7360C1D118C5A26F004A7DE4 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		7360C1D218C5A26F004A7DE4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		7360C1D318C5A26F004A7DE4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		7360C1D418C5A26F004A7DE4 /* UIImage+ResizeMagick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ResizeMagick.h"; sourceTree = "<group>"; };
+		7360C1D518C5A26F004A7DE4 /* UIImage+ResizeMagick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ResizeMagick.m"; sourceTree = "<group>"; };
+		7360C1D618C5A26F004A7DE4 /* UIImage-ResizeMagick.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "UIImage-ResizeMagick.podspec"; sourceTree = "<group>"; };
 		73C76E3418A109A8001C60EB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = SOURCE_ROOT; };
 		73E1110818914C260011CBD3 /* check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check@2x.png"; sourceTree = "<group>"; };
 		73E1110918914C260011CBD3 /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
@@ -154,6 +165,7 @@
 		73238CF01890AAC60047DDA0 /* ImagePicker */ = {
 			isa = PBXGroup;
 			children = (
+				7360C1CE18C5A26F004A7DE4 /* 3rdSource */,
 				73C76E3418A109A8001C60EB /* README.md */,
 				73238D1F1890AD2F0047DDA0 /* DoImagePicker */,
 				73238CF91890AAC60047DDA0 /* AppDelegate.h */,
@@ -223,6 +235,35 @@
 			path = Resources;
 			sourceTree = SOURCE_ROOT;
 		};
+		7360C1CE18C5A26F004A7DE4 /* 3rdSource */ = {
+			isa = PBXGroup;
+			children = (
+				7360C1CF18C5A26F004A7DE4 /* UIImage+Border */,
+				7360C1D018C5A26F004A7DE4 /* UIImage-ResizeMagick */,
+			);
+			path = 3rdSource;
+			sourceTree = "<group>";
+		};
+		7360C1CF18C5A26F004A7DE4 /* UIImage+Border */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "UIImage+Border";
+			sourceTree = "<group>";
+		};
+		7360C1D018C5A26F004A7DE4 /* UIImage-ResizeMagick */ = {
+			isa = PBXGroup;
+			children = (
+				7360C1D118C5A26F004A7DE4 /* .gitignore */,
+				7360C1D218C5A26F004A7DE4 /* LICENSE */,
+				7360C1D318C5A26F004A7DE4 /* README.md */,
+				7360C1D418C5A26F004A7DE4 /* UIImage+ResizeMagick.h */,
+				7360C1D518C5A26F004A7DE4 /* UIImage+ResizeMagick.m */,
+				7360C1D618C5A26F004A7DE4 /* UIImage-ResizeMagick.podspec */,
+			);
+			path = "UIImage-ResizeMagick";
+			sourceTree = "<group>";
+		};
 		73E1110718914C260011CBD3 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,6 +330,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Seungbo Cho";
 				TargetAttributes = {
+					73238CE61890AAC60047DDA0 = {
+						DevelopmentTeam = GXDY7L4VT8;
+					};
 					73238D071890AAC70047DDA0 = {
 						TestTargetID = 73238CE61890AAC60047DDA0;
 					};
@@ -321,16 +365,20 @@
 				73E1111718915AEA0011CBD3 /* up.png in Resources */,
 				73238D311890AF380047DDA0 /* DoAlbumCell.xib in Resources */,
 				73238D241890AD4B0047DDA0 /* DoImagePickerController.xib in Resources */,
+				7360C1D918C5A26F004A7DE4 /* README.md in Resources */,
 				73238D031890AAC70047DDA0 /* Images.xcassets in Resources */,
 				73E1111618915AEA0011CBD3 /* down.png in Resources */,
 				73E1110F18914C260011CBD3 /* up@2x.png in Resources */,
 				73C76E3518A109A8001C60EB /* README.md in Resources */,
 				73E1111418915AEA0011CBD3 /* check.png in Resources */,
 				73238CF51890AAC60047DDA0 /* InfoPlist.strings in Resources */,
+				7360C1DB18C5A26F004A7DE4 /* UIImage-ResizeMagick.podspec in Resources */,
 				73E1111518915AEA0011CBD3 /* close.png in Resources */,
 				73238CFE1890AAC60047DDA0 /* Main.storyboard in Resources */,
+				7360C1D718C5A26F004A7DE4 /* .gitignore in Resources */,
 				73E1110E18914C260011CBD3 /* down@2x.png in Resources */,
 				731D67CA18A087A5002BAEF6 /* line@2x.png in Resources */,
+				7360C1D818C5A26F004A7DE4 /* LICENSE in Resources */,
 				731D67CE18A0D066002BAEF6 /* show.png in Resources */,
 				73238D4F1890DC4C0047DDA0 /* DoPhotoCell.xib in Resources */,
 				73E1110C18914C260011CBD3 /* check@2x.png in Resources */,
@@ -357,6 +405,7 @@
 				73238D341890C97F0047DDA0 /* AssetHelper.m in Sources */,
 				73238D4D1890DC320047DDA0 /* DoPhotoCell.m in Sources */,
 				73238D231890AD4B0047DDA0 /* DoImagePickerController.m in Sources */,
+				7360C1DA18C5A26F004A7DE4 /* UIImage+ResizeMagick.m in Sources */,
 				73238D2A1890AF010047DDA0 /* DoAlbumCell.m in Sources */,
 				73238D011890AAC60047DDA0 /* ViewController.m in Sources */,
 				73238CFB1890AAC60047DDA0 /* AppDelegate.m in Sources */,
@@ -487,10 +536,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ImagePicker/ImagePicker-Prefix.pch";
 				INFOPLIST_FILE = "ImagePicker/ImagePicker-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -500,10 +552,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ImagePicker/ImagePicker-Prefix.pch";
 				INFOPLIST_FILE = "ImagePicker/ImagePicker-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

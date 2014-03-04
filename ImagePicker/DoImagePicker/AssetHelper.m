@@ -243,6 +243,8 @@
     
     if (nType == ASSET_PHOTO_THUMBNAIL)
         iRef = [asset thumbnail];
+    else if (nType == ASSET_PHOTO_ASPECT_THUMBNAIL)
+        iRef = [asset aspectRatioThumbnail];
     else if (nType == ASSET_PHOTO_SCREEN_SIZE)
         iRef = [asset.defaultRepresentation fullScreenImage];
     else if (nType == ASSET_PHOTO_FULL_RESOLUTION)

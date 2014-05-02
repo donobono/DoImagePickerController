@@ -168,8 +168,7 @@
 - (NSDictionary *)getGroupInfo:(NSInteger)nIndex
 {
     return @{@"name" : [_assetGroups[nIndex] valueForProperty:ALAssetsGroupPropertyName],
-             @"count" : @([_assetGroups[nIndex] numberOfAssets]),
-             @"thumbnail" : [UIImage imageWithCGImage:[(ALAssetsGroup*)_assetGroups[nIndex] posterImage]]};
+             @"count" : @([_assetGroups[nIndex] numberOfAssets])};
 }
 
 - (void)clearData

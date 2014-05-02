@@ -11,8 +11,6 @@
 #import "DoAlbumCell.h"
 #import "DoPhotoCell.h"
 
-#import "UIImage+ResizeMagick.h"
-
 @implementation DoImagePickerController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -294,18 +292,8 @@
 
     if (_nColumnCount == 4)
         cell.ivPhoto.image = [ASSETHELPER getImageAtIndex:indexPath.row type:ASSET_PHOTO_THUMBNAIL];
-    else    // high quality(especially column count is 3), but slow little
-    {
-        UIImage *iPhoto = [ASSETHELPER getImageAtIndex:indexPath.row type:ASSET_PHOTO_ASPECT_THUMBNAIL];
-        
-        if (_nColumnCount == 3)
-            cell.ivPhoto.image = [iPhoto resizedImageByMagick:@"208x208#"];
-        else
-            cell.ivPhoto.image = [iPhoto resizedImageByMagick:@"316x316#"];
-    }
-
-    // if you feel too slow, use this.
-//    cell.ivPhoto.image = [ASSETHELPER getImageAtIndex:indexPath.row type:ASSET_PHOTO_THUMBNAIL];
+    else
+        cell.ivPhoto.image = [ASSETHELPER getImageAtIndex:indexPath.row type:ASSET_PHOTO_ASPECT_THUMBNAIL];
     
 
 	if (_dSelected[@(indexPath.row)] == nil)

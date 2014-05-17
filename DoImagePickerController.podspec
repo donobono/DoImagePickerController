@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.author             = { 'donobono' => 'email@address.com' }
   s.source       = { :git => 'https://github.com/ljlin/DoImagePickerController.git', :tag => '0.0.1' }
   s.source_files  = 'DoImagePicker', 'ImagePicker/DoImagePicker/*.{h,m}'
-  s.public_header_files = 'ImagePicker/DoImagePicker/*.h'
   s.resources = 'Resources/*'
   s.requires_arc = true
+
 end

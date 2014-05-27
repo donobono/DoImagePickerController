@@ -290,7 +290,7 @@
 				ORGANIZATIONNAME = "Seungbo Cho";
 				TargetAttributes = {
 					73238CE61890AAC60047DDA0 = {
-						DevelopmentTeam = GXDY7L4VT8;
+						DevelopmentTeam = ZRY6W7A7K7;
 					};
 					73238D071890AAC70047DDA0 = {
 						TestTargetID = 73238CE61890AAC60047DDA0;

@@ -11,6 +11,16 @@
 #import "DoAlbumCell.h"
 #import "DoPhotoCell.h"
 
+#define DO_RGB(r, g, b)     [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
+#define DO_RGBA(r, g, b, a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
+
+#define DO_MENU_BACK_COLOR          DO_RGBA(57, 185, 238, 0.98)
+#define DO_SIDE_BUTTON_COLOR        DO_RGBA(57, 185, 238, 0.9)
+
+#define DO_ALBUM_NAME_TEXT_COLOR    DO_RGB(57, 185, 238)
+#define DO_ALBUM_COUNT_TEXT_COLOR   DO_RGB(247, 200, 142)
+#define DO_BOTTOM_TEXT_COLOR        DO_RGB(255, 255, 255)
+
 @implementation DoImagePickerController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -76,8 +86,8 @@
 - (void)initControls
 {
     // side buttons
-    _btUp.backgroundColor = DO_SIDE_BUTTON_COLOR;
-    _btDown.backgroundColor = DO_SIDE_BUTTON_COLOR;
+    _btUp.backgroundColor = DoImagePickerController.sideButtonColor;
+    _btDown.backgroundColor = DoImagePickerController.sideButtonColor;
     
     CALayer *layer1 = [_btDown layer];
 	[layer1 setMasksToBounds:YES];
@@ -89,11 +99,11 @@
     
     // table view
     UIImageView *ivHeader = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _tvAlbumList.frame.size.width, 0.5)];
-    ivHeader.backgroundColor = DO_ALBUM_NAME_TEXT_COLOR;
+    ivHeader.backgroundColor = DoImagePickerController.albumNameSelectedTextColor;
     _tvAlbumList.tableHeaderView = ivHeader;
     
     UIImageView *ivFooter = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _tvAlbumList.frame.size.width, 0.5)];
-    ivFooter.backgroundColor = DO_ALBUM_NAME_TEXT_COLOR;
+    ivFooter.backgroundColor = DoImagePickerController.albumNameSelectedTextColor;
     _tvAlbumList.tableFooterView = ivFooter;
     
     // dimmed view
@@ -131,9 +141,9 @@
 #pragma mark - for bottom menu
 - (void)initBottomMenu
 {
-    _vBottomMenu.backgroundColor = DO_MENU_BACK_COLOR;
-    [_btSelectAlbum setTitleColor:DO_BOTTOM_TEXT_COLOR forState:UIControlStateNormal];
-    [_btSelectAlbum setTitleColor:DO_BOTTOM_TEXT_COLOR forState:UIControlStateDisabled];
+    _vBottomMenu.backgroundColor = DoImagePickerController.menuBackColor;
+    [_btSelectAlbum setTitleColor:DoImagePickerController.bottomTextColor forState:UIControlStateNormal];
+    [_btSelectAlbum setTitleColor:DoImagePickerController.bottomTextColor forState:UIControlStateDisabled];
     
     _ivLine1.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"line.png"]];
     _ivLine2.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"line.png"]];
@@ -141,7 +151,7 @@
     if (_nMaxCount == DO_NO_LIMIT_SELECT)
     {
         _lbSelectCount.text = @"(0)";
-        _lbSelectCount.textColor = DO_BOTTOM_TEXT_COLOR;
+        _lbSelectCount.textColor = DoImagePickerController.bottomTextColor;
     }
     else if (_nMaxCount <= 1)
     {
@@ -158,7 +168,7 @@
     else
     {
         _lbSelectCount.text = [NSString stringWithFormat:@"(0/%d)", (int)_nMaxCount];
-        _lbSelectCount.textColor = DO_BOTTOM_TEXT_COLOR;
+        _lbSelectCount.textColor = DoImagePickerController.bottomTextColor;
     }
 }
 
@@ -590,6 +600,33 @@
     
     return -1;
 }
+
+#pragma mark - static branding
+
+static UIColor *_menuBackColor;
+static UIColor *_sideButtonColor;
+static UIColor *_albumNameSelectedTextColor;
+static UIColor *_albumNameUnselectedTextColor;
+static UIColor *_albumCountTextColor;
+static UIColor *_bottomTextColor;
+
++ (UIColor *)menuBackColor { @synchronized(self) { return _menuBackColor ? _menuBackColor : DO_MENU_BACK_COLOR; } }
++ (void)setMenuBackColor:(UIColor *)color { @synchronized(self) { _menuBackColor = color; } }
+
++ (UIColor *)sideButtonColor { @synchronized(self) { return _sideButtonColor ? _sideButtonColor : DO_SIDE_BUTTON_COLOR; } }
++ (void)setSideButtonColor:(UIColor *)color { @synchronized(self) { _sideButtonColor = color; } }
+
++ (UIColor *)albumNameSelectedTextColor { @synchronized(self) { return _albumNameSelectedTextColor ? _albumNameSelectedTextColor : DO_ALBUM_NAME_TEXT_COLOR; } }
++ (void)setAlbumNameSelectedTextColor:(UIColor *)color { @synchronized(self) { _albumNameSelectedTextColor = color; } }
+
++ (UIColor *)albumNameUnselectedTextColor { @synchronized(self) { return _albumNameUnselectedTextColor ? _albumNameUnselectedTextColor : DO_ALBUM_NAME_TEXT_COLOR; } }
++ (void)setAlbumNameUnselectedTextColor:(UIColor *)color { @synchronized(self) { _albumNameUnselectedTextColor = color; } }
+
++ (UIColor *)albumCountTextColor { @synchronized(self) { return _albumCountTextColor ? _albumCountTextColor : DO_ALBUM_COUNT_TEXT_COLOR; } }
++ (void)setAlbumCountTextColor:(UIColor *)color { @synchronized(self) { _albumCountTextColor = color; } }
+
++ (UIColor *)bottomTextColor { @synchronized(self) { return _bottomTextColor ? _bottomTextColor : DO_BOTTOM_TEXT_COLOR; } }
++ (void)setBottomTextColor:(UIColor *)color { @synchronized(self) { _bottomTextColor = color; } }
 
 #pragma mark - Others
 - (void)didReceiveMemoryWarning

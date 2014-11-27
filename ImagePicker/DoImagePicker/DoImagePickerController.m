@@ -339,14 +339,8 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_nColumnCount == 2)
-        return CGSizeMake(158, 158);
-    else if (_nColumnCount == 3)
-        return CGSizeMake(104, 104);
-    else if (_nColumnCount == 4)
-        return CGSizeMake(77, 77);
-
-    return CGSizeZero;
+    CGFloat width = ([UIScreen mainScreen].bounds.size.width-3*_nColumnCount)/_nColumnCount;
+    return CGSizeMake(width, width);
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

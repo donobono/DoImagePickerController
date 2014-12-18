@@ -10,10 +10,10 @@
 #define DO_RGB(r, g, b)     [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
 #define DO_RGBA(r, g, b, a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 
-#define DO_MENU_BACK_COLOR          DO_RGBA(57, 185, 238, 0.98)
-#define DO_SIDE_BUTTON_COLOR        DO_RGBA(57, 185, 238, 0.9)
+#define DO_MENU_BACK_COLOR          DO_RGBA(254, 64, 128, 0.88)
+#define DO_SIDE_BUTTON_COLOR        DO_RGBA(254, 64, 128, 0.8)
 
-#define DO_ALBUM_NAME_TEXT_COLOR    DO_RGB(57, 185, 238)
+#define DO_ALBUM_NAME_TEXT_COLOR    DO_RGB(254, 64, 128)
 #define DO_ALBUM_COUNT_TEXT_COLOR   DO_RGB(247, 200, 142)
 #define DO_BOTTOM_TEXT_COLOR        DO_RGB(255, 255, 255)
 

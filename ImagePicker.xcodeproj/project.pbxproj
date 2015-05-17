@@ -53,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4CCA82E61B0946F200CA4365 /* DoImagePickerController.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = DoImagePickerController.podspec; sourceTree = SOURCE_ROOT; };
 		731D67C918A087A5002BAEF6 /* line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line@2x.png"; sourceTree = "<group>"; };
 		731D67CC18A0D066002BAEF6 /* show.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = show.png; sourceTree = "<group>"; };
 		731D67CD18A0D066002BAEF6 /* show@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "show@2x.png"; sourceTree = "<group>"; };
@@ -171,6 +172,7 @@
 		73238CF11890AAC60047DDA0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4CCA82E61B0946F200CA4365 /* DoImagePickerController.podspec */,
 				73238CF21890AAC60047DDA0 /* ImagePicker-Info.plist */,
 				73238CF31890AAC60047DDA0 /* InfoPlist.strings */,
 				73238CF61890AAC60047DDA0 /* main.m */,

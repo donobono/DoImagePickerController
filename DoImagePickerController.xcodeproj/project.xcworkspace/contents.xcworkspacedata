@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:ImagePicker.xcodeproj">
+      location = "self:/Users/fraser/Documents/DoImagePickerController/DoImagePickerController.xcodeproj">
    </FileRef>
 </Workspace>

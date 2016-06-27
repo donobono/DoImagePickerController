@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name             = 'DoImagePickerController'
-s.version          = '1.4'
+s.version          = '1.5'
 s.summary          = 'An image picker controller with single selection and multiple selection. Support to select lots photos with panning gesture'
 s.homepage         = 'https://github.com/IdleHandsApps/DoImagePickerController/'
 s.description      = <<-DESC
@@ -12,7 +12,7 @@ s.source           = { :git => 'https://github.com/IdleHandsApps/DoImagePickerCo
 s.platform     = :ios, '7.0'
 s.source_files  = "DoImagePicker", "ImagePicker/DoImagePicker/*.{h,m}"
 s.public_header_files = 'ImagePicker/DoImagePicker/*.h'
-s.resource_bundles = { 'DoImagePickerBundle' => ["Resources/Images/*.png","ImagePicker/DoImagePicker/*.xib"] }
+s.resource_bundles = { 'DoImagePickerController' => ["Resources/Images/*.png","ImagePicker/DoImagePicker/*.xib"] }
 
 s.ios.deployment_target = '7.0'
 s.requires_arc = true

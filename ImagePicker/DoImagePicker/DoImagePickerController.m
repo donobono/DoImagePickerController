@@ -39,24 +39,27 @@
     [self initBottomMenu];
     [self initControls];
     
-    UINib *nib = [UINib nibWithNibName:@"DoPhotoCell" bundle:nil];
+    NSBundle *podBundle = [NSBundle bundleForClass:DoPhotoCell.classForCoder];
+    NSURL *bundleUrl = [podBundle URLForResource:@"DoImagePickerController" withExtension:@"bundle"];
+    NSBundle *bundle = [NSBundle bundleWithURL:bundleUrl];
+    UINib *nib = [UINib nibWithNibName:@"DoPhotoCell" bundle:bundle];
     [_cvPhotoList registerNib:nib forCellWithReuseIdentifier:@"DoPhotoCell"];
     
     _tvAlbumList.frame = CGRectMake(0, _vBottomMenu.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
     _tvAlbumList.alpha = 0.0;
-
+    
     [self readAlbumList:YES];
-
+    
     // new photo is located at the first of array
     ASSETHELPER.bReverse = YES;
-	
-	if (_nMaxCount != 1)
-	{
-		// init gesture for multiple selection with panning
-		UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPanForSelection:)];
-		[self.view addGestureRecognizer:pan];
-	}
-
+    
+    if (_nMaxCount != 1)
+    {
+        // init gesture for multiple selection with panning
+        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPanForSelection:)];
+        [self.view addGestureRecognizer:pan];
+    }
+    
     // init gesture for preview
     UILongPressGestureRecognizer *longTap = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongTapForPreview:)];
     longTap.minimumPressDuration = 0.3;
@@ -74,7 +77,7 @@
     if (_nResultType == DO_PICKER_RESULT_UIIMAGE)
         [ASSETHELPER clearData];
     
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (void)handleEnterForeground:(NSNotification*)notification
@@ -90,12 +93,12 @@
     _btDown.backgroundColor = DoImagePickerController.sideButtonColor;
     
     CALayer *layer1 = [_btDown layer];
-	[layer1 setMasksToBounds:YES];
-	[layer1 setCornerRadius:_btDown.frame.size.height / 2.0 - 1];
+    [layer1 setMasksToBounds:YES];
+    [layer1 setCornerRadius:_btDown.frame.size.height / 2.0 - 1];
     
     CALayer *layer2 = [_btUp layer];
-	[layer2 setMasksToBounds:YES];
-	[layer2 setCornerRadius:_btUp.frame.size.height / 2.0 - 1];
+    [layer2 setMasksToBounds:YES];
+    [layer2 setCornerRadius:_btUp.frame.size.height / 2.0 - 1];
     
     // table view
     UIImageView *ivHeader = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _tvAlbumList.frame.size.width, 0.5)];
@@ -118,7 +121,7 @@
     [ASSETHELPER getGroupList:^(NSArray *aGroups) {
         
         [_tvAlbumList reloadData];
-
+        
         NSInteger nIndex = 0;
 #ifdef DO_SAVE_SELECTED_ALBUM
         nIndex = [self getSelectedGroupIndex:aGroups];
@@ -176,7 +179,7 @@
 {
     NSMutableArray *aResult = [[NSMutableArray alloc] initWithCapacity:_dSelected.count];
     NSArray *aKeys = [_dSelected keysSortedByValueUsingSelector:@selector(compare:)];
-
+    
     if (_nResultType == DO_PICKER_RESULT_UIIMAGE)
     {
         for (int i = 0; i < _dSelected.count; i++)
@@ -191,7 +194,7 @@
         for (int i = 0; i < _dSelected.count; i++)
             [aResult addObject:[ASSETHELPER getAssetAtIndex:[aKeys[i] integerValue]]];
     }
-
+    
     [_delegate didSelectPhotosFromDoImagePickerController:self result:aResult];
 }
 
@@ -206,9 +209,9 @@
     {
         // show tableview
         [UIView animateWithDuration:0.2 animations:^(void) {
-
+            
             _vDimmed.alpha = 0.7;
-
+            
             _tvAlbumList.frame = CGRectMake(0, _vBottomMenu.frame.origin.y - _tvAlbumList.frame.size.height,
                                             _tvAlbumList.frame.size.width, _tvAlbumList.frame.size.height);
             _tvAlbumList.alpha = 1.0;
@@ -257,9 +260,12 @@
     
     if (cell == nil)
     {
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"DoAlbumCell" owner:nil options:nil] lastObject];
+        NSBundle *podBundle = [NSBundle bundleForClass:DoAlbumCell.classForCoder];
+        NSURL *bundleUrl = [podBundle URLForResource:@"DoImagePickerController" withExtension:@"bundle"];
+        NSBundle *bundle = [NSBundle bundleWithURL:bundleUrl];
+        cell = [[bundle loadNibNamed:@"DoAlbumCell" owner:nil options:nil] lastObject];
     }
-
+    
     NSDictionary *d = [ASSETHELPER getGroupInfo:indexPath.row];
     cell.lbAlbumName.text   = d[@"name"];
     cell.lbCount.text       = [NSString stringWithFormat:@"%@", d[@"count"]];
@@ -271,7 +277,7 @@
 {
     [self showPhotosInGroup:indexPath.row];
     [_btSelectAlbum setTitle:[ASSETHELPER getGroupInfo:indexPath.row][@"name"] forState:UIControlStateNormal];
-
+    
     [self hideBottomMenu];
 }
 
@@ -285,7 +291,7 @@
         _ivShowMark.transform = CGAffineTransformMakeRotation(0);
         
         [UIView setAnimationDelay:0.1];
-
+        
         _tvAlbumList.alpha = 0.0;
     }];
 }
@@ -299,18 +305,18 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     DoPhotoCell *cell = (DoPhotoCell *)[_cvPhotoList dequeueReusableCellWithReuseIdentifier:@"DoPhotoCell" forIndexPath:indexPath];
-
+    
     if (_nColumnCount == 4)
         cell.ivPhoto.image = [ASSETHELPER getImageAtIndex:indexPath.row type:ASSET_PHOTO_THUMBNAIL];
     else
         cell.ivPhoto.image = [ASSETHELPER getImageAtIndex:indexPath.row type:ASSET_PHOTO_ASPECT_THUMBNAIL];
     
-
-	if (_dSelected[@(indexPath.row)] == nil)
-		[cell setSelectMode:NO];
+    
+    if (_dSelected[@(indexPath.row)] == nil)
+        [cell setSelectMode:NO];
     else
-		[cell setSelectMode:YES];
-	
+        [cell setSelectMode:YES];
+    
     return cell;
 }
 
@@ -318,20 +324,20 @@
 {
     if (_nMaxCount > 1 || _nMaxCount == DO_NO_LIMIT_SELECT)
     {
-		DoPhotoCell *cell = (DoPhotoCell *)[collectionView cellForItemAtIndexPath:indexPath];
+        DoPhotoCell *cell = (DoPhotoCell *)[collectionView cellForItemAtIndexPath:indexPath];
         
-		if ((_dSelected[@(indexPath.row)] == nil) && (_nMaxCount > _dSelected.count))
-		{
-			// select
-			_dSelected[@(indexPath.row)] = @(_dSelected.count);
-			[cell setSelectMode:YES];
-		}
-		else
-		{
-			// unselect
-			[_dSelected removeObjectForKey:@(indexPath.row)];
-			[cell setSelectMode:NO];
-		}
+        if ((_dSelected[@(indexPath.row)] == nil) && (_nMaxCount > _dSelected.count))
+        {
+            // select
+            _dSelected[@(indexPath.row)] = @(_dSelected.count);
+            [cell setSelectMode:YES];
+        }
+        else
+        {
+            // unselect
+            [_dSelected removeObjectForKey:@(indexPath.row)];
+            [cell setSelectMode:NO];
+        }
         
         if (_nMaxCount == DO_NO_LIMIT_SELECT)
             _lbSelectCount.text = [NSString stringWithFormat:@"(%d)", (int)_dSelected.count];
@@ -355,7 +361,7 @@
         return CGSizeMake(104, 104);
     else if (_nColumnCount == 4)
         return CGSizeMake(77, 77);
-
+    
     return CGSizeZero;
 }
 
@@ -385,9 +391,9 @@
     
     double fX = [gestureRecognizer locationInView:_cvPhotoList].x;
     double fY = [gestureRecognizer locationInView:_cvPhotoList].y;
-	
+    
     for (UICollectionViewCell *cell in _cvPhotoList.visibleCells)
-	{
+    {
         float fSX = cell.frame.origin.x;
         float fEX = cell.frame.origin.x + cell.frame.size.width;
         float fSY = cell.frame.origin.y;
@@ -399,7 +405,7 @@
             
             if (_lastAccessed != indexPath)
             {
-				[self collectionView:_cvPhotoList didSelectItemAtIndexPath:indexPath];
+                [self collectionView:_cvPhotoList didSelectItemAtIndexPath:indexPath];
             }
             
             _lastAccessed = indexPath;
@@ -423,7 +429,7 @@
     {
         double fX = [gestureRecognizer locationInView:_cvPhotoList].x;
         double fY = [gestureRecognizer locationInView:_cvPhotoList].y;
-
+        
         // check boundary of controls
         CGPoint pt = [gestureRecognizer locationInView:self.view];
         if (CGRectContainsPoint(_vBottomMenu.frame, pt))
@@ -477,13 +483,13 @@
             _cvPhotoList.alpha = 1.0;
         }];
         
-		if (aPhotos.count > 0)
-		{
-			[_cvPhotoList scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
+        if (aPhotos.count > 0)
+        {
+            [_cvPhotoList scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
         }
-
+        
         _btUp.alpha = 0.0;
-
+        
         dispatch_async(dispatch_get_main_queue(), ^(void) {
             if (_cvPhotoList.contentSize.height < _cvPhotoList.frame.size.height)
                 _btDown.alpha = 0.0;
@@ -526,7 +532,7 @@
     
     [_ivPreview removeFromSuperview];
     _ivPreview = nil;
-
+    
     _vDimmed.alpha = 0.0;
     [_vDimmed removeGestureRecognizer:[_vDimmed.gestureRecognizers lastObject]];
 }
@@ -534,7 +540,7 @@
 - (void)onPanToClosePreview:(UIPanGestureRecognizer *)gestureRecognizer
 {
     CGPoint translation = [gestureRecognizer translationInView:self.view];
-
+    
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded)
     {
         [UIView animateWithDuration:0.2 animations:^(void) {
@@ -546,9 +552,9 @@
                     pt.y = self.view.frame.size.height * 1.5;
                 else if (_ivPreview.center.y < _vDimmed.center.y)
                     pt.y = -self.view.frame.size.height * 1.5;
-
+                
                 _ivPreview.center = pt;
-
+                
                 [self hidePreview];
             }
             else
@@ -561,8 +567,8 @@
     }
     else
     {
-		_ivPreview.center = CGPointMake(_ivPreview.center.x, _ivPreview.center.y + translation.y);
-		[gestureRecognizer setTranslation:CGPointMake(0, 0) inView:self.view];
+        _ivPreview.center = CGPointMake(_ivPreview.center.x, _ivPreview.center.y + translation.y);
+        [gestureRecognizer setTranslation:CGPointMake(0, 0) inView:self.view];
         
         _vDimmed.alpha = 1 - ABS(_ivPreview.center.y - _vDimmed.center.y) / (self.view.frame.size.height / 2.0);
     }
@@ -572,9 +578,9 @@
 - (void)saveSelectedGroup:(NSInteger)nIndex
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	
-	[defaults setObject:[[ASSETHELPER getGroupAtIndex:nIndex] valueForProperty:ALAssetsGroupPropertyName] forKey:@"DO_SELECTED_ALBUM"];
-	[defaults synchronize];
+    
+    [defaults setObject:[[ASSETHELPER getGroupAtIndex:nIndex] valueForProperty:ALAssetsGroupPropertyName] forKey:@"DO_SELECTED_ALBUM"];
+    [defaults synchronize];
     
     NSLog(@"[[ASSETHELPER getGroupAtIndex:nIndex] valueForProperty:ALAssetsGroupPropertyName] : %@", [[ASSETHELPER getGroupAtIndex:nIndex] valueForProperty:ALAssetsGroupPropertyName]);
 }
@@ -582,7 +588,7 @@
 - (NSString *)loadSelectedGroup
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	
+    
     NSLog(@"---------> %@", [defaults objectForKey:@"DO_SELECTED_ALBUM"]);
     
     return [defaults objectForKey:@"DO_SELECTED_ALBUM"];

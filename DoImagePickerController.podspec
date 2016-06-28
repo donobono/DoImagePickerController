@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name             = 'DoImagePickerController'
-s.version          = '1.5'
+s.version          = '1.6'
 s.summary          = 'An image picker controller with single selection and multiple selection. Support to select lots photos with panning gesture'
 s.homepage         = 'https://github.com/IdleHandsApps/DoImagePickerController/'
 s.description      = <<-DESC

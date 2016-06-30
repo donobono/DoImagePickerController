@@ -53,26 +53,27 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4CCA82E61B0946F200CA4365 /* DoImagePickerController.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = DoImagePickerController.podspec; sourceTree = SOURCE_ROOT; };
 		731D67C918A087A5002BAEF6 /* line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line@2x.png"; sourceTree = "<group>"; };
 		731D67CC18A0D066002BAEF6 /* show.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = show.png; sourceTree = "<group>"; };
 		731D67CD18A0D066002BAEF6 /* show@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "show@2x.png"; sourceTree = "<group>"; };
-		73238CE71890AAC60047DDA0 /* ImagePicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImagePicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		73238CE71890AAC60047DDA0 /* DoImagePickerController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoImagePickerController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73238CEA1890AAC60047DDA0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		73238CEC1890AAC60047DDA0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		73238CEE1890AAC60047DDA0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		73238CF21890AAC60047DDA0 /* ImagePicker-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ImagePicker-Info.plist"; sourceTree = "<group>"; };
+		73238CF21890AAC60047DDA0 /* DoImagePickerController-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DoImagePickerController-Info.plist"; sourceTree = "<group>"; };
 		73238CF41890AAC60047DDA0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		73238CF61890AAC60047DDA0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		73238CF81890AAC60047DDA0 /* ImagePicker-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ImagePicker-Prefix.pch"; sourceTree = "<group>"; };
+		73238CF81890AAC60047DDA0 /* DoImagePickerController-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DoImagePickerController-Prefix.pch"; sourceTree = "<group>"; };
 		73238CF91890AAC60047DDA0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		73238CFA1890AAC60047DDA0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		73238CFD1890AAC60047DDA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		73238CFF1890AAC60047DDA0 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		73238D001890AAC60047DDA0 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		73238D021890AAC70047DDA0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		73238D081890AAC70047DDA0 /* ImagePickerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImagePickerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		73238D081890AAC70047DDA0 /* DoImagePickerController.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DoImagePickerController.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		73238D091890AAC70047DDA0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		73238D111890AAC70047DDA0 /* ImagePickerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ImagePickerTests-Info.plist"; sourceTree = "<group>"; };
+		73238D111890AAC70047DDA0 /* DoImagePickerControllerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DoImagePickerControllerTests-Info.plist"; sourceTree = "<group>"; };
 		73238D131890AAC70047DDA0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		73238D151890AAC70047DDA0 /* ImagePickerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImagePickerTests.m; sourceTree = "<group>"; };
 		73238D201890AD4B0047DDA0 /* DoImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoImagePickerController.h; sourceTree = "<group>"; };
@@ -134,8 +135,8 @@
 		73238CE81890AAC60047DDA0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				73238CE71890AAC60047DDA0 /* ImagePicker.app */,
-				73238D081890AAC70047DDA0 /* ImagePickerTests.xctest */,
+				73238CE71890AAC60047DDA0 /* DoImagePickerController.app */,
+				73238D081890AAC70047DDA0 /* DoImagePickerController.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -171,10 +172,11 @@
 		73238CF11890AAC60047DDA0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				73238CF21890AAC60047DDA0 /* ImagePicker-Info.plist */,
+				4CCA82E61B0946F200CA4365 /* DoImagePickerController.podspec */,
+				73238CF21890AAC60047DDA0 /* DoImagePickerController-Info.plist */,
 				73238CF31890AAC60047DDA0 /* InfoPlist.strings */,
 				73238CF61890AAC60047DDA0 /* main.m */,
-				73238CF81890AAC60047DDA0 /* ImagePicker-Prefix.pch */,
+				73238CF81890AAC60047DDA0 /* DoImagePickerController-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -191,7 +193,7 @@
 		73238D101890AAC70047DDA0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				73238D111890AAC70047DDA0 /* ImagePickerTests-Info.plist */,
+				73238D111890AAC70047DDA0 /* DoImagePickerControllerTests-Info.plist */,
 				73238D121890AAC70047DDA0 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -245,9 +247,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		73238CE61890AAC60047DDA0 /* ImagePicker */ = {
+		73238CE61890AAC60047DDA0 /* DoImagePickerController */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 73238D191890AAC70047DDA0 /* Build configuration list for PBXNativeTarget "ImagePicker" */;
+			buildConfigurationList = 73238D191890AAC70047DDA0 /* Build configuration list for PBXNativeTarget "DoImagePickerController" */;
 			buildPhases = (
 				73238CE31890AAC60047DDA0 /* Sources */,
 				73238CE41890AAC60047DDA0 /* Frameworks */,
@@ -257,14 +259,14 @@
 			);
 			dependencies = (
 			);
-			name = ImagePicker;
+			name = DoImagePickerController;
 			productName = ImagePicker;
-			productReference = 73238CE71890AAC60047DDA0 /* ImagePicker.app */;
+			productReference = 73238CE71890AAC60047DDA0 /* DoImagePickerController.app */;
 			productType = "com.apple.product-type.application";
 		};
-		73238D071890AAC70047DDA0 /* ImagePickerTests */ = {
+		73238D071890AAC70047DDA0 /* DoImagePickerControllerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 73238D1C1890AAC70047DDA0 /* Build configuration list for PBXNativeTarget "ImagePickerTests" */;
+			buildConfigurationList = 73238D1C1890AAC70047DDA0 /* Build configuration list for PBXNativeTarget "DoImagePickerControllerTests" */;
 			buildPhases = (
 				73238D041890AAC70047DDA0 /* Sources */,
 				73238D051890AAC70047DDA0 /* Frameworks */,
@@ -275,9 +277,9 @@
 			dependencies = (
 				73238D0E1890AAC70047DDA0 /* PBXTargetDependency */,
 			);
-			name = ImagePickerTests;
+			name = DoImagePickerControllerTests;
 			productName = ImagePickerTests;
-			productReference = 73238D081890AAC70047DDA0 /* ImagePickerTests.xctest */;
+			productReference = 73238D081890AAC70047DDA0 /* DoImagePickerController.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -297,7 +299,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 73238CE21890AAC60047DDA0 /* Build configuration list for PBXProject "ImagePicker" */;
+			buildConfigurationList = 73238CE21890AAC60047DDA0 /* Build configuration list for PBXProject "DoImagePickerController" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -310,8 +312,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				73238CE61890AAC60047DDA0 /* ImagePicker */,
-				73238D071890AAC70047DDA0 /* ImagePickerTests */,
+				73238CE61890AAC60047DDA0 /* DoImagePickerController */,
+				73238D071890AAC70047DDA0 /* DoImagePickerControllerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -380,7 +382,7 @@
 /* Begin PBXTargetDependency section */
 		73238D0E1890AAC70047DDA0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 73238CE61890AAC60047DDA0 /* ImagePicker */;
+			target = 73238CE61890AAC60047DDA0 /* DoImagePickerController */;
 			targetProxy = 73238D0D1890AAC70047DDA0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -493,9 +495,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ImagePicker/ImagePicker-Prefix.pch";
-				INFOPLIST_FILE = "ImagePicker/ImagePicker-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "ImagePicker/DoImagePickerController-Prefix.pch";
+				INFOPLIST_FILE = "ImagePicker/DoImagePickerController-Info.plist";
+				PRODUCT_NAME = DoImagePickerController;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -509,9 +511,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ImagePicker/ImagePicker-Prefix.pch";
-				INFOPLIST_FILE = "ImagePicker/ImagePicker-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "ImagePicker/DoImagePickerController-Prefix.pch";
+				INFOPLIST_FILE = "ImagePicker/DoImagePickerController-Info.plist";
+				PRODUCT_NAME = DoImagePickerController;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -528,13 +530,13 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ImagePicker/ImagePicker-Prefix.pch";
+				GCC_PREFIX_HEADER = "ImagePicker/DoImagePickerController-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "ImagePickerTests/ImagePickerTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "ImagePickerTests/DoImagePickerControllerTests-Info.plist";
+				PRODUCT_NAME = DoImagePickerController;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -551,9 +553,9 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ImagePicker/ImagePicker-Prefix.pch";
-				INFOPLIST_FILE = "ImagePickerTests/ImagePickerTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "ImagePicker/DoImagePickerController-Prefix.pch";
+				INFOPLIST_FILE = "ImagePickerTests/DoImagePickerControllerTests-Info.plist";
+				PRODUCT_NAME = DoImagePickerController;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -562,7 +564,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		73238CE21890AAC60047DDA0 /* Build configuration list for PBXProject "ImagePicker" */ = {
+		73238CE21890AAC60047DDA0 /* Build configuration list for PBXProject "DoImagePickerController" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				73238D171890AAC70047DDA0 /* Debug */,
@@ -571,7 +573,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		73238D191890AAC70047DDA0 /* Build configuration list for PBXNativeTarget "ImagePicker" */ = {
+		73238D191890AAC70047DDA0 /* Build configuration list for PBXNativeTarget "DoImagePickerController" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				73238D1A1890AAC70047DDA0 /* Debug */,
@@ -580,7 +582,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		73238D1C1890AAC70047DDA0 /* Build configuration list for PBXNativeTarget "ImagePickerTests" */ = {
+		73238D1C1890AAC70047DDA0 /* Build configuration list for PBXNativeTarget "DoImagePickerControllerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				73238D1D1890AAC70047DDA0 /* Debug */,

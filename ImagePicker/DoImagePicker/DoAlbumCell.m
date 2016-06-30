@@ -28,12 +28,12 @@
         _lbAlbumName.textColor  = [UIColor whiteColor];
         _lbCount.textColor      = [UIColor whiteColor];
         
-        self.contentView.backgroundColor = DO_ALBUM_NAME_TEXT_COLOR;
+        self.contentView.backgroundColor = DoImagePickerController.albumNameSelectedTextColor;
     }
     else
     {
-        _lbAlbumName.textColor  = DO_ALBUM_NAME_TEXT_COLOR;
-        _lbCount.textColor      = DO_ALBUM_COUNT_TEXT_COLOR;
+        _lbAlbumName.textColor  = DoImagePickerController.albumNameUnselectedTextColor;
+        _lbCount.textColor      = DoImagePickerController.albumCountTextColor;
         
         self.contentView.backgroundColor = [UIColor whiteColor];
     }

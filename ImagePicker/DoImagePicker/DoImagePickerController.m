@@ -201,7 +201,8 @@
 
             _tvAlbumList.frame = CGRectMake(0, _vBottomMenu.frame.origin.y - _tvAlbumList.frame.size.height,
                                             _tvAlbumList.frame.size.width, _tvAlbumList.frame.size.height);
-            _tvAlbumList.alpha = 1.0;
+            //_tvAlbumList.alpha = 1.0;
+            _tvAlbumList.alpha = 0.7;
             
             _ivShowMark.transform = CGAffineTransformMakeRotation(M_PI);
         }];

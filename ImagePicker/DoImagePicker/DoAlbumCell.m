@@ -28,14 +28,16 @@
         _lbAlbumName.textColor  = [UIColor whiteColor];
         _lbCount.textColor      = [UIColor whiteColor];
         
-        self.contentView.backgroundColor = DO_ALBUM_NAME_TEXT_COLOR;
+        //self.contentView.backgroundColor = DO_ALBUM_NAME_TEXT_COLOR;
+        self.contentView.backgroundColor = DO_RGBA(0, 0, 0, 0.9);
     }
     else
     {
         _lbAlbumName.textColor  = DO_ALBUM_NAME_TEXT_COLOR;
         _lbCount.textColor      = DO_ALBUM_COUNT_TEXT_COLOR;
         
-        self.contentView.backgroundColor = [UIColor whiteColor];
+        //self.contentView.backgroundColor = [UIColor whiteColor];
+        self.contentView.backgroundColor = DO_RGBA(255, 255, 255, 0.9);
     }
 }
 
